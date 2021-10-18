@@ -3,6 +3,7 @@ const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js')
 const config = require('../../config.json')
 const moment = require('moment')
 require('moment-duration-format')
+const Canvas = require('canvas')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -42,18 +43,79 @@ module.exports = {
             const Target = interaction.options.getUser('user') || interaction.user
             const Member = interaction.guild.members.cache.get(Target.id)
             const userFlags = Target.flags.toArray();
-            
 
-            const row = new MessageActionRow()
-            .addComponents(
-                new MessageButton()
-                .setLabel('Avatar del usuario')
-                .setStyle('LINK')
-                .setURL(`${Target.displayAvatarURL({ dynamic: true })}`)
-                .setEmoji('👤'),
-            )
+            const canvas = Canvas.createCanvas(966, 70); 
+            
+            const ctx = canvas.getContext("2d");
+            
+            const user = await client.users.fetch(Target.id, {force: true})
+
+            ctx.fillStyle = (await user).hexAccentColor;
+
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+           
             
             
+            
+            if(!user.hexAccentColor && !user.bannerURL() || user.bot){  
+            const embed = new MessageEmbed()
+                    .setAuthor(`Informacion de ${Target.username}`)
+                    .setThumbnail(Target.displayAvatarURL({dynamic: true, size: 4096}))
+                    .setColor(config.defaultSuccessColor)
+                    .addField(`🙋‍♂️ Nombre`, "```" + `${Target.username}` + "```", true)
+                    .addField(`🏷️ Tag`, "```" + `${Target.discriminator}` + "```", true)
+                    .addField(`📌 Apodo del usuario`, "```" + `${Member.nickname !== null ? Member.nickname : 'Ninguno'}` + "```", true)
+                    .addField(`🔗 ID`, "```" + `${Target.id}` + "```", false)
+                    .addField(`⏳ Usuario de Discord desde`, "```" + `${moment.utc(Target.createdAt).format('LLLL')}` + "```", true)
+                    .addField(`⏳ Miembro del servidor desde`, "```" + `${moment.utc(Member.joinedAt).format('LLLL')}` + "```", true)
+                    .addField(`🏳️ Emblemas`, "```" + `${userFlags.length ? userFlags.map(flag => flags[flag]).join(', ') : 'Ninguno'}` + "```", false)
+                    .addField(`🚀 Boost`, "```" + `${Member.premiumSince ? 'Esta boosteando 🚀' : 'No esta boosteando.'}` + "```", false)
+                    .setFooter(`${Target.username}`, Target.displayAvatarURL({ dynamic: true }))
+                    .setTimestamp()
+                await interaction.reply({ embeds: [embed], components: [
+                    new MessageActionRow()
+                    .addComponents(
+                        new MessageButton()
+                        .setLabel('Avatar del usuario')
+                        .setStyle('LINK')
+                        .setURL(`${Target.avatarURL({ dynamic: true })}`)
+                        .setEmoji('👤'),
+                    )] 
+                })
+            } else if(!user.bannerURL()){
+                const img = await canvas.toBuffer()
+
+                await interaction.reply({ files: [{
+                    attachment: img,
+                    name: "hex.png"
+                }], embeds: [
+                    new MessageEmbed()
+                    .setAuthor(`Informacion de ${Target.username}`)
+                    .setThumbnail(Target.displayAvatarURL({dynamic: true, size: 4096}))
+                    .setColor(config.defaultSuccessColor)
+                    .addField(`🙋‍♂️ Nombre`, "```" + `${Target.username}` + "```", true)
+                    .addField(`🏷️ Tag`, "```" + `${Target.discriminator}` + "```", true)
+                    .addField(`📌 Apodo del usuario`, "```" + `${Member.nickname !== null ? Member.nickname : 'Ninguno'}` + "```", true)
+                    .addField(`🔗 ID`, "```" + `${Target.id}` + "```", false)
+                    .addField(`⏳ Usuario de Discord desde`, "```" + `${moment.utc(Target.createdAt).format('LLLL')}` + "```", true)
+                    .addField(`⏳ Miembro del servidor desde`, "```" + `${moment.utc(Member.joinedAt).format('LLLL')}` + "```", true)
+                    .addField(`🏳️ Emblemas`, "```" + `${userFlags.length ? userFlags.map(flag => flags[flag]).join(', ') : 'Ninguno'}` + "```", false)
+                    .addField(`🚀 Boost`, "```" + `${Member.premiumSince ? 'Esta boosteando 🚀' : 'No esta boosteando.'}` + "```", false)
+                    .setFooter(`${Target.username}`, Target.displayAvatarURL({ dynamic: true }))
+                    .setTimestamp()
+                    .setImage("attachment://hex.png")
+                ], components: [
+                    new MessageActionRow()
+                    .addComponents(
+                        new MessageButton()
+                        .setLabel('Avatar del usuario')
+                        .setStyle('LINK')
+                        .setURL(`${Target.avatarURL({ dynamic: true, size: 4096 })}`)
+                        .setEmoji('👤'),
+                    )] 
+            })
+                
+            } else {
                 const embed = new MessageEmbed()
                     .setAuthor(`Informacion de ${Target.username}`)
                     .setThumbnail(Target.displayAvatarURL({dynamic: true, size: 4096}))
@@ -68,7 +130,25 @@ module.exports = {
                     .addField(`🚀 Boost`, "```" + `${Member.premiumSince ? 'Esta boosteando 🚀' : 'No esta boosteando.'}` + "```", false)
                     .setFooter(`${Target.username}`, Target.displayAvatarURL({ dynamic: true }))
                     .setTimestamp()
-                await interaction.reply({ embeds: [embed], components: [row] })
+                    .setImage(user.bannerURL({ dynamic: true, size: 512}))
+                await interaction.reply({ embeds: [embed], components: [
+                    new MessageActionRow()
+                    .addComponents(
+                        new MessageButton()
+                        .setLabel('Avatar del usuario')
+                        .setStyle('LINK')
+                        .setURL(`${Target.avatarURL({ dynamic: true, size: 4096 })}`)
+                        .setEmoji('👤'),
+
+                        new MessageButton()
+                        .setLabel('Banner del usuario')
+                        .setStyle('LINK')
+                        .setURL(`${Target.bannerURL({ dynamic: true, size: 512 })}`)
+                        .setEmoji('👤'),
+                    )] 
+                })
+            }
+
             } catch(e){
                 console.error(e)
                 interaction.reply({ embeds: [
