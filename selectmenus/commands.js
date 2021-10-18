@@ -1,0 +1,131 @@
+const { MessageEmbed } = require ('discord.js')
+const config = require('../config.json')
+
+module.exports = {
+    data: {
+        name: 'commands'
+    },
+    async run(client, interaction) {
+        if (!interaction.isSelectMenu()) return;
+        switch (interaction.values[0]) {
+            case 'diversion':
+                const embedDiversion = new MessageEmbed()
+                .setColor(config.defaultSuccessColor)
+                .setTitle('Comandos de diversion')
+                .addField('> 8ball [text]', 'Preguntale algo al bot, te respondera lo que sea', true)
+                .addField('> ascii [text]', 'El bot te convertira el texto a un ASCII', true)
+                .addField('> cookie [@user]', 'Dale una galleta a un usuario', true)
+                .addField('> bean [@user]', 'Benea a algun miembro del servidor (Juegale una broma)', true)
+                .addField('> hack [@user]', 'Hackea a algun miembro del servidor (Juegale una broma)', true)
+                .addField('> meme', 'El bot te mandara un meme', true)
+                .addField('> say [text]', 'Escribe al bot, lo que quieres que diga por vos', true)
+                .addField('> ship [@user]', 'Mide el amor que tienen entre vos y alguien mas', true)
+                .setImage('https://i.ibb.co/ncPFZ8w/category-Diversion.gif')
+                .setFooter('[] obligatorio {} opcional')
+                .setTimestamp()
+                 interaction.update({ content: ' ', embeds: [embedDiversion], components: []})
+            break
+            case 'images':
+                const embedImages = new MessageEmbed()
+                .setColor(config.defaultSuccessColor) 
+                .setTitle('Comandos de imagenes')
+                .addField('> images beautiful', 'Demuestrale a todo el mundo que sos una persona hermosa', true)
+                .addField('> images gay {@user}', 'Di que sos o dile a alguien que es gay', true)
+                .addField('> images invert', 'Invierte los colores de tu avatar', true)
+                .addField('> images delete {@user}', 'Borrate a vos mismo o alguien mas', true)
+                .addField('> images rip {@user}', 'Di que te moriste o que algun usuario se murio', true)
+                .addField('> images spank [@user]', 'Dale nalgadas a un usuario', true)
+                .addField('> images trash {@user}', 'Un meme en el cual te relacionan a vos o a otro con un tacho de basura', true)
+                .addField('> images wanted {@user}', 'Una imagen donde sales vos o alguien mas buscado por la justicia', true)
+                .setImage('https://i.ibb.co/b5RQPCP/standard.gif')
+                .setFooter('[] obligatorio {} opcional')
+                .setTimestamp()
+                 interaction.update({ content: ' ', embeds: [embedImages], components: []})
+            break
+            case 'informacion': 
+            const embedInformacion = new MessageEmbed()
+                .setColor(config.defaultSuccessColor) 
+                .setTitle('Comandos de informacion')
+                .addField('> avatar {@user}', 'Muestra tu avatar o el de alguien mas', true)
+                .addField('> channelinfo [@channel]', 'Muestra la informacion de un canal, sea texto o voz', true)
+                .addField('> help', 'Muestra informacion del bot', true)
+                .addField('> serverinfo', 'Muestra informacion del servidor', true)
+                .addField('> avatar {@user}', 'Muestra tu avatar o el de alguien mas', true)
+                .addField('> serverinfo {@user}', 'Muestra tu avatar o el de alguien mas', true)
+                .setImage('https://i.ibb.co/q0kT3Ph/standard-1.gif')
+                .setFooter('[] obligatorio {} opcional')
+                .setTimestamp()
+                interaction.update({ content: ' ', embeds: [embedInformacion], components: []})
+            break
+            case 'interaccion':
+            const embedInteracciones = new MessageEmbed()
+                .setColor(config.defaultSuccessColor) 
+                .setTitle('Comandos de interacciones')
+                .addField('> interact angry [@user]', 'Enojate con alguien', true)
+                .addField('> interact baka [@user]', 'Dile tonto a alguien', true)
+                .addField('> interact bite [@user]', 'Muerde a alguien', true)
+                .addField('> interact blush', 'Sonrojate', true)
+                .addField('> interact bored', 'Demuestra que estas aburrido', true)
+                .addField('> interact bonk [@user]', 'Golpeale a alguien en la cabeza', true)
+                .addField('> interact bully [@user]', 'Hazle bullying a un usuario', true)
+                .addField('> interact bye {@user}', 'Golpea en la cabeza a alguien', true)
+                .addField('> interact cry', 'Demuestra que estas triste', true)
+                .addField('> interact cringe {@user}', 'Mira a alguien con asco o demuestra que algo te dio asco', true)
+                .addField('> interact cuddle [@user]', 'Acurrucate con alguien', true)
+                .addField('> interact feed {@user}', 'Come vos solo o dale de comer a alguien', true)
+                .addField('> interact hate [@user]', 'Mira a alguien con odio', true)
+                .addField('> interact hi {@user}', 'Saluda a alguien o a todo el mundo', true)
+                .addField('> interact hug [@user]', 'Dale un abrazo a alguien', true)
+                .addField('> interact kill [@user]', 'Mata a alguien', true)
+                .addField('> interact lick [@user]', 'Lame a un usuario', true)
+                .addField('> interact nope [@user]', 'Dile que no a alguien', true)
+                .addField('> interact pat [@user]', 'Acaricia a alguien en la cabeza', true)
+                .addField('> interact poke [@user]', 'Molesta a un usuario', true)
+                .addField('> interact sleep {@user}', 'Duerme con alguien o vos solo', true)
+                .addField('> interact happy', 'Di que estas feliz', true)
+                .addField('> interact think {@user}', 'Piensa en algo random o en algun usuario', true)
+                .addField('> interact yes [@user]', 'Dile que si a alguien', true)
+                .setImage('https://i.ibb.co/MB9KJWn/standard-2.gif')
+                .setFooter('[] obligatorio {} opcional')
+                .setTimestamp()
+                interaction.update({ content: ' ', embeds: [embedInteracciones], components: []})
+            break
+            case 'aplicaciones':
+                const embedAplicaciones = new MessageEmbed()
+                .setColor(config.defaultSuccessColor)
+                .setTitle('Comando de aplicaciones')  
+                .addField('> sesiones', 'Inicia alguna aplicaciones dentro de Discord para jugar o ver con amigos (Tambien solo)')
+                .setImage('https://i.ibb.co/4pSJgHv/standard-3.gif')
+                .setFooter('[] obligatorio {} opcional')
+                .setTimestamp()
+                interaction.update({ content: ' ', embeds: [embedAplicaciones], components: []})
+            break
+            case 'utilidad':
+                const embedUtilidad = new MessageEmbed()
+                .setColor(config.defaultSuccessColor)
+                .setTitle('Comandos de utilidades')
+                .addField('> image [text]', 'Busca una imagen especifica de lo que vos le escribas', true)
+                .addField('> lyrics [name-song]', 'Busca la letra de una cancion', true)
+                .addField('> password [number]', 'Genera una contraseña aleatoria de entre 6 a 20 caracteres', true)
+                .addField('> ping', 'Revisa el ping del bot y tu propio ping', true)
+                .setImage('https://i.ibb.co/4TbqZQK/standard-4.gif')
+                .setFooter('[] obligatorio {} opcional')
+                .setTimestamp()
+                interaction.update({ content: ' ', embeds: [embedUtilidad], components: []})
+            break
+            case 'games':
+                const embedGames = new MessageEmbed()
+                .setColor(config.defaultSuccessColor)
+                .setTitle('Comandos de videojuegos')
+                .addField('> game mcserver [ip] {port-server}', 'Regresa informacion de un servidor de Minecraft', true)
+                .addField('> game mclogro [text]', 'Regresa una imagen de un logro de Minecraft con el texto que quieras.', true)
+                .addField('> game gdlevel [id]', 'Regresa informacion de un nivel de Geometry Dash', true)
+                .addField('> game gduser [user]', 'Regresa informacion de un usuari de Geometry Dash', true)
+                .setImage('https://i.ibb.co/F37Dhh8/standard-5.gif')
+                .setTimestamp()
+                .setFooter('[] obligatorio {} opcional')
+                interaction.update({ content: ' ', embeds: [embedGames], components: []})
+            break
+            }
+        }
+    }
