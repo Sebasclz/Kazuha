@@ -9,10 +9,14 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('game')
         .setDescription('Devuelve comandos de informacion de videojuegos')
+        .addSubcommandGroup(subcommandgroup => 
+            subcommandgroup
+            .setName('geometry-dash')
+            .setDescription('Comandos de Geometry Dash')
         //Command 1
         .addSubcommand(subcommand => 
             subcommand
-            .setName('gdlevel')
+            .setName('level')
             .setDescription('Regresa informacion de un nivel de Geometry Dash.')
             .addStringOption(option =>
                 option.setName('id')
@@ -21,16 +25,21 @@ module.exports = {
         //Command 2
         .addSubcommand(subcommand => 
             subcommand
-            .setName('gduser')
+            .setName('user')
             .setDescription('Regresa informacion de un usuario de Geometry Dash.')
                 .addStringOption(option => 
                     option.setName('user')
                     .setDescription("Nombre del usuario")
-                    .setRequired(true)))
+                    .setRequired(true))))
+
+        .addSubcommandGroup(subcommandgroup => 
+            subcommandgroup
+            .setName('minecraft')
+            .setDescription('Comandos de Minecraft')
         //Command 3
         .addSubcommand(subcommand => 
             subcommand
-            .setName('mcserver')
+            .setName('server')
             .setDescription('Regresa informacion de un servidor de Minecraft.')
                 .addStringOption(option => 
                     option.setName('ip')
@@ -43,7 +52,7 @@ module.exports = {
         //Command 3
         .addSubcommand(subcommand => 
             subcommand
-            .setName('mclogro')
+            .setName('logro')
             .setDescription('Haz un logro de Minecraft')
                 .addStringOption(option => 
                     option.setName('text')
@@ -53,7 +62,7 @@ module.exports = {
         //Command 3
         .addSubcommand(subcommand => 
             subcommand
-            .setName('mchypixel')
+            .setName('hypixel')
             .setDescription('Busca informacion de tu usuario en Hypixel')
                 .addStringOption(option => 
                     option.setName('name')
@@ -63,14 +72,14 @@ module.exports = {
         //Command 3
         .addSubcommand(subcommand => 
             subcommand
-            .setName('mcskin')
+            .setName('skin')
             .setDescription('Regresa tu skin en version 3D')
                 .addStringOption(option => 
                     option.setName('name')
                     .setDescription("Nombre de tu cuenta de Minecraft")
-                    .setRequired(true))),
+                    .setRequired(true)))),
         async run(client, interaction){
-            if(interaction.options.getSubcommand() === "gdlevel"){
+            if(interaction.options.getSubcommand() === "level"){
                 /*
                 GDLEVEL
                 */
@@ -123,7 +132,7 @@ module.exports = {
                     ]})
                 };
             
-            } else if(interaction.options.getSubcommand() === "gduser"){
+            } else if(interaction.options.getSubcommand() === "user"){
                 /*
                 GDUSER
                 */
@@ -171,7 +180,7 @@ module.exports = {
                         ]})
                     };
 
-            } else if(interaction.options.getSubcommand() === "mcserver"){
+            } else if(interaction.options.getSubcommand() === "server"){
                 /*
                 MCSERVER
                 */
@@ -213,7 +222,7 @@ module.exports = {
                     .setFooter(interaction.user.username, interaction.user.avatarURL())
                 ]})               
             };
-            } else if(interaction.options.getSubcommand() === "mclogro"){
+            } else if(interaction.options.getSubcommand() === "logro"){
                 /*
                 MCLOGRO
                 */
@@ -256,7 +265,7 @@ module.exports = {
                             .setFooter(interaction.user.username, interaction.user.avatarURL())
                         ]})
                     };
-                } else if(interaction.options.getSubcommand() === "mchypixel"){
+                } else if(interaction.options.getSubcommand() === "hypixel"){
                     /*
                     MCHYPIXEL
                     */
@@ -318,7 +327,7 @@ module.exports = {
                             ]})
                         };
 
-                    } else if(interaction.options.getSubcommand() === "mcskin"){
+                    } else if(interaction.options.getSubcommand() === "skin"){
                     /*
                     MCSKIN
                     */
