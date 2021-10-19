@@ -30,7 +30,7 @@ module.exports = {
                         const addUserBlacklist = new blacklist({ //Creamos una nueva blacklist
                             userId: Id 
                         });
-                        await addUserBlacklist.save();
+                        await addUserBlacklist.save().catch(e => console.log(e));
 
                         const embed = new MessageEmbed() //Mandamos un embed de confirmacion
                         .setColor(config.defaultSuccessColor)

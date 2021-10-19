@@ -15,7 +15,7 @@ module.exports = {
                 new MessageButton()
                 .setLabel('Invitame')
                 .setStyle('LINK')
-                .setURL('https://discord.com/api/oauth2/authorize?client_id=891675957902053449&permissions=8&scope=bot%20applications.commands')
+                .setURL('https://discord.com/oauth2/authorize?client_id=898933117123973211&permissions=8&scope=bot%20applications.commands')
                 .setEmoji('🎉'),
 
                 new MessageButton()

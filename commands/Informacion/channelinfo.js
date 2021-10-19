@@ -37,8 +37,7 @@ module.exports = {
             .setTitle(`Informacion del canal de voz: ${nameChannel}`)
             .addField('Nombre', "```" + `${nameChannel}` + "```", true)
             .addField('ID del canal', "```" + `${channel.id}` + "```", true)
-            .addField('¿NSFW?', "```" + `${channel.nsfw === false ? "No" : "Si"}` + "```", true)
-            .addField('Tipo del canal', "```" + `${channel.type === 'GUILD_VOICE' ? "Canal de voz" : "Canal de texto"}` + "```", true)
+            .addField('Tipo del canal', "```" + `${channel.type === 'GUILD_VOICE' ? "Canal de voz" : "Canal de texto"}` + "```", false)
             .addField(`Su categoria es`, "```" + `${channel.parent.name}` + "```", false)
             return interaction.reply({ embeds: [embed]})
 
