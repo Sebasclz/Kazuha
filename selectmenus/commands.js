@@ -6,7 +6,7 @@ module.exports = {
         name: 'commands'
     },
     async run(client, interaction) {
-        if (!interaction.isSelectMenu()) return;
+        if(interaction.isSelectMenu() !== interaction.user.id) return;
         switch (interaction.values[0]) {
             case 'diversion':
                 const embedDiversion = new MessageEmbed()

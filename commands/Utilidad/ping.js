@@ -19,6 +19,7 @@ module.exports = {
                         .setTitle(`🏓 Pong!`)
                         .setThumbnail(interaction.user.displayAvatarURL({ format: 'png', dynamic: true, size: 4096}))
                         .setDescription(`**BOT: ` + ping + `ms**\nEste es el ping que tiene el bot con la API de Discord.\n\n**Tu ping: ` + pingUser + `ms**\nEste es el ping que tienes vos con la API de Discord`)
+                        .setFooter(`Shard Id: ${interaction.guild.shardId}`, interaction.user.avatarURL())
                         .setTimestamp()
                         return interaction.editReply({content: ' ', embeds: [embed]}).catch(() => {
                             const embedError = new MessageEmbed()

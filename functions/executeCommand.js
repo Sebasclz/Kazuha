@@ -19,6 +19,11 @@ module.exports = async (client, interaction) => {
 
     if(userBlacklist) return;
 
+    const guildModel = await guilds.findOne({ guildId: interaction.guild.id })
+
+    console.log(guildModel)
+
+    if(guildModel === null){
     const newGuild = new guilds({
         guildId: interaction.guild.id.toString(),
         guildName: interaction.guild.name.toString(),
@@ -26,6 +31,7 @@ module.exports = async (client, interaction) => {
         memberCount: interaction.guild.memberCount.toString(),
     })
     newGuild.save().catch(e => console.log(e))
+}
 
     try {
         await command.run(client, interaction)

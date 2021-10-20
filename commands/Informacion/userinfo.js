@@ -78,7 +78,7 @@ module.exports = {
                         new MessageButton()
                         .setLabel('Avatar del usuario')
                         .setStyle('LINK')
-                        .setURL(`${Target.avatarURL({ dynamic: true })}`)
+                        .setURL(`${Target.avatarURL({ dynamic: true, format: 'png' })}`)
                         .setEmoji('👤'),
                     )] 
                 })
