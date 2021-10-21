@@ -47,7 +47,7 @@ module.exports = {
                 .addField('\u200b', '\u200b', true)
                 .addField(`💎 Fecha de creación`, `25-Ago-2021`, true)
                 .addField(`🔧 Desarrolladores`, `iSebas#3534 & lx,#8083`, true)
-                .setImage('https://i.ibb.co/zGn2cKK/Untitled-Design.png')
+                .setImage('https://i.ibb.co/pzRWfbH/banner-bot.gif')
                 .setFooter('Comando de ayuda', client.user.displayAvatarURL())
                 .setTimestamp()
 
