@@ -78,7 +78,7 @@ module.exports = {
                         new MessageButton()
                         .setLabel('Avatar del usuario')
                         .setStyle('LINK')
-                        .setURL(`${Target.avatarURL({ dynamic: true, format: 'png' })}`)
+                        .setURL(`${Target.avatarURL({ dynamic: true, format: 'png', size: 4096 })}`)
                         .setEmoji('👤'),
                     )] 
                 })
@@ -110,7 +110,7 @@ module.exports = {
                         new MessageButton()
                         .setLabel('Avatar del usuario')
                         .setStyle('LINK')
-                        .setURL(`${Target.avatarURL({ dynamic: true, size: 4096 })}`)
+                        .setURL(`${Target.avatarURL({ dynamic: true, size: 4096, format: 'png' })}`)
                         .setEmoji('👤'),
                     )] 
             })
@@ -137,7 +137,7 @@ module.exports = {
                         new MessageButton()
                         .setLabel('Avatar del usuario')
                         .setStyle('LINK')
-                        .setURL(`${Target.avatarURL({ dynamic: true, size: 4096 })}`)
+                        .setURL(`${Target.avatarURL({ dynamic: true, size: 4096, format: 'png' })}`)
                         .setEmoji('👤'),
 
                         new MessageButton()

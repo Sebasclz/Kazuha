@@ -25,10 +25,11 @@ module.exports = {
                 .setEmoji('🔧'),
 
                 new MessageButton()
-                .setLabel('Documentacion')
+                .setLabel('Documentacion (Mantenimiento)')
                 .setStyle('LINK')
                 .setURL('https://sebas-1.gitbook.io/kazuha/')
-                .setEmoji('📖'),
+                .setEmoji('📖')
+                .setDisabled(),
 
                 new MessageButton()
                 .setLabel('Votar por el bot (DiscordThings)')
@@ -39,12 +40,13 @@ module.exports = {
 
             const embed = new MessageEmbed()
                 .setColor(config.defaultSuccessColor)
-                .setAuthor('👑 Creador del bot: S3BAS#3534')
-                .setTitle('Comando de ayuda | Kazuha')
-                .setDescription('Soy **Kazuha**, un bot multifuncional que sirve para todo lo que te puedas imaginar.\n\n**__Comandos__**\nPara ver mis comandos solo tendras que escribir `/commands`.')
+                .setTitle('Comando de ayuda | Slide')
+                .setDescription('Soy **Slide**, un bot multifuncional que sirve para todo lo que te puedas imaginar.\n\n**__Comandos__**\nPara ver mis comandos solo tendras que escribir `/commands`.')
                 .addField(`📚 Libreria`, `Discord.js v${version}`, true)
                 .addField(`📣 Versión`, `1.0.0`, true)
+                .addField('\u200b', '\u200b', true)
                 .addField(`💎 Fecha de creación`, `25-Ago-2021`, true)
+                .addField(`🔧 Desarrolladores`, `iSebas#3534 & lx,#8083`, true)
                 .setImage('https://i.ibb.co/zGn2cKK/Untitled-Design.png')
                 .setFooter('Comando de ayuda', client.user.displayAvatarURL())
                 .setTimestamp()

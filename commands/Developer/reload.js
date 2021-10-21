@@ -19,10 +19,11 @@ module.exports = {
     
                         if(developers === null) return interaction.editReply({ embeds: [embedErrorOwner]}) 
 
-                    await interaction.editReply('`>>> Reinicio en proceso <<<`').then(() => client.destroy())
-                    .then(() => client.login(config.token))
-                    await interaction.editReply('`>>> Reinicio completado <<<`')
-                    console.log('>>> Reinicio completado <<<')
+                        await interaction.editReply('`>>> Reinicio en proceso <<<`').then(() => client.destroy()) //Destruimos la conexion del bot
+                        .then(() => client.login(config.token)) //Volvemos a encenderlo
+                        await interaction.editReply('`>>> Reinicio completado <<<`') //Avisamos en el chat
+                        console.log('>>> Reinicio completado <<<') //Aviso en consola
+
                     } catch(e){
                         console.log(e)
                     }

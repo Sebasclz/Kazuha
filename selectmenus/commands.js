@@ -6,8 +6,19 @@ module.exports = {
         name: 'commands'
     },
     async run(client, interaction) {
-        if(interaction.isSelectMenu() !== interaction.user.id) return;
+        if(!interaction.isSelectMenu()) return;
         switch (interaction.values[0]) {
+            case 'configuracion':
+                const embedConfiguracion = new MessageEmbed()
+                .setColor(config.defaultSuccessColor)
+                .setTitle('Comandos de configuracion')
+                .addField('> config channel enable [@channel]', 'Habilita que el bot pueda responder interacciones en un canal', true)
+                .addField('> config channel disable [@channel]', 'Deshabilita que el bot pueda responder interacciones en un canal', true)
+                .setImage('https://i.ibb.co/9hv2m4R/Configuracion.gif')
+                .setFooter('[] obligatorio {} opcional')
+                .setTimestamp()
+                 interaction.update({ content: ' ', embeds: [embedConfiguracion]})
+            break
             case 'diversion':
                 const embedDiversion = new MessageEmbed()
                 .setColor(config.defaultSuccessColor)
@@ -20,10 +31,10 @@ module.exports = {
                 .addField('> meme', 'El bot te mandara un meme', true)
                 .addField('> say [text]', 'Escribe al bot, lo que quieres que diga por vos', true)
                 .addField('> ship [@user]', 'Mide el amor que tienen entre vos y alguien mas', true)
-                .setImage('https://i.ibb.co/ncPFZ8w/category-Diversion.gif')
+                .setImage('https://i.ibb.co/3fM5fqH/Diversion.gif')
                 .setFooter('[] obligatorio {} opcional')
                 .setTimestamp()
-                 interaction.update({ content: ' ', embeds: [embedDiversion], components: []})
+                 interaction.update({ content: ' ', embeds: [embedDiversion]})
             break
             case 'images':
                 const embedImages = new MessageEmbed()
@@ -37,10 +48,10 @@ module.exports = {
                 .addField('> images spank [@user]', 'Dale nalgadas a un usuario', true)
                 .addField('> images trash {@user}', 'Un meme en el cual te relacionan a vos o a otro con un tacho de basura', true)
                 .addField('> images wanted {@user}', 'Una imagen donde sales vos o alguien mas buscado por la justicia', true)
-                .setImage('https://i.ibb.co/b5RQPCP/standard.gif')
+                .setImage('https://i.ibb.co/jgqw9w2/Imagenes.gif')
                 .setFooter('[] obligatorio {} opcional')
                 .setTimestamp()
-                 interaction.update({ content: ' ', embeds: [embedImages], components: []})
+                 interaction.update({ content: ' ', embeds: [embedImages]})
             break
             case 'informacion': 
             const embedInformacion = new MessageEmbed()
@@ -52,10 +63,10 @@ module.exports = {
                 .addField('> serverinfo', 'Muestra informacion del servidor', true)
                 .addField('> avatar {@user}', 'Muestra tu avatar o el de alguien mas', true)
                 .addField('> serverinfo {@user}', 'Muestra tu avatar o el de alguien mas', true)
-                .setImage('https://i.ibb.co/q0kT3Ph/standard-1.gif')
+                .setImage('https://i.ibb.co/VJnWS8x/Informacion.gif')
                 .setFooter('[] obligatorio {} opcional')
                 .setTimestamp()
-                interaction.update({ content: ' ', embeds: [embedInformacion], components: []})
+                interaction.update({ content: ' ', embeds: [embedInformacion]})
             break
             case 'interaccion':
             const embedInteracciones = new MessageEmbed()
@@ -85,20 +96,20 @@ module.exports = {
                 .addField('> interact happy', 'Di que estas feliz', true)
                 .addField('> interact think {@user}', 'Piensa en algo random o en algun usuario', true)
                 .addField('> interact yes [@user]', 'Dile que si a alguien', true)
-                .setImage('https://i.ibb.co/MB9KJWn/standard-2.gif')
+                .setImage('https://i.ibb.co/FY98FQ4/Interacciones.gif')
                 .setFooter('[] obligatorio {} opcional')
                 .setTimestamp()
-                interaction.update({ content: ' ', embeds: [embedInteracciones], components: []})
+                interaction.update({ content: ' ', embeds: [embedInteracciones]})
             break
             case 'aplicaciones':
                 const embedAplicaciones = new MessageEmbed()
                 .setColor(config.defaultSuccessColor)
                 .setTitle('Comando de aplicaciones')  
                 .addField('> sesiones', 'Inicia alguna aplicaciones dentro de Discord para jugar o ver con amigos (Tambien solo)')
-                .setImage('https://i.ibb.co/4pSJgHv/standard-3.gif')
+                .setImage('https://i.ibb.co/f0XYknW/Aplicaciones.gif')
                 .setFooter('[] obligatorio {} opcional')
                 .setTimestamp()
-                interaction.update({ content: ' ', embeds: [embedAplicaciones], components: []})
+                interaction.update({ content: ' ', embeds: [embedAplicaciones]})
             break
             case 'utilidad':
                 const embedUtilidad = new MessageEmbed()
@@ -108,23 +119,26 @@ module.exports = {
                 .addField('> lyrics [name-song]', 'Busca la letra de una cancion', true)
                 .addField('> password [number]', 'Genera una contraseña aleatoria de entre 6 a 20 caracteres', true)
                 .addField('> ping', 'Revisa el ping del bot y tu propio ping', true)
-                .setImage('https://i.ibb.co/4TbqZQK/standard-4.gif')
+                .setImage('https://i.ibb.co/xGbVdwV/Utilidades.gif')
                 .setFooter('[] obligatorio {} opcional')
                 .setTimestamp()
-                interaction.update({ content: ' ', embeds: [embedUtilidad], components: []})
+                interaction.update({ content: ' ', embeds: [embedUtilidad]})
             break
             case 'games':
                 const embedGames = new MessageEmbed()
                 .setColor(config.defaultSuccessColor)
                 .setTitle('Comandos de videojuegos')
-                .addField('> game mcserver [ip] {port-server}', 'Regresa informacion de un servidor de Minecraft', true)
-                .addField('> game mclogro [text]', 'Regresa una imagen de un logro de Minecraft con el texto que quieras.', true)
-                .addField('> game gdlevel [id]', 'Regresa informacion de un nivel de Geometry Dash', true)
-                .addField('> game gduser [user]', 'Regresa informacion de un usuari de Geometry Dash', true)
-                .setImage('https://i.ibb.co/F37Dhh8/standard-5.gif')
+                .addField('> game geometry-dash level [id]', 'Regresa informacion de un nivel de Geometry Dash', true)
+                .addField('> game geometry-dash user [user]', 'Regresa informacion de un usuari de Geometry Dash', true)
+                .addField('> game geometry-dash text [text]', 'Regresa el texto que introduzcas con un formato estilo Geometry Dash', true)
+                .addField('> game minecraft server [ip] {port-server}', 'Regresa informacion de un servidor de Minecraft', true)
+                .addField('> game minecraft logro [text]', 'Regresa una imagen de un logro de Minecraft con el texto que quieras.', true)
+                .addField('> game minecraft hypixel [name]', 'Regresa informacion de tu cuenta en Hypixel', true)
+                .addField('> game minecraft skin [name]', 'Regresa tu skin de Minecraft en version 3D', true)
+                .setImage('https://i.ibb.co/tJKZgQX/Videojuegos.gif')
                 .setTimestamp()
                 .setFooter('[] obligatorio {} opcional')
-                interaction.update({ content: ' ', embeds: [embedGames], components: []})
+                interaction.update({ content: ' ', embeds: [embedGames]})
             break
             }
         }

@@ -33,7 +33,7 @@ module.exports = {
                             if(txt.length > limit){
 
                             const embed = new MessageEmbed()
-                            .setTitle('Eval | Kazuha')
+                            .setTitle('Eval | Slide')
                             .setDescription('📥 Entrada\n```js\n' + code + '```\n📤 Salida\n```js\n' + txt.slice(0, limit) + '```')
                             .setColor(config.defaultSuccessColor)
 

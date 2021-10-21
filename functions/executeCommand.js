@@ -21,8 +21,6 @@ module.exports = async (client, interaction) => {
 
     const guildModel = await guilds.findOne({ guildId: interaction.guild.id })
 
-    console.log(guildModel)
-
     if(guildModel === null){
     const newGuild = new guilds({
         guildId: interaction.guild.id.toString(),

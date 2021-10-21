@@ -7,7 +7,7 @@ module.exports = {
         name: 'sesiones'
     },
     async run(client, interaction) {
-        if(interaction.isSelectMenu() !== interaction.user.id) return;
+        if(!interaction.isSelectMenu()) return;
         client.discordTogether = new DiscordTogether(client);
 
         const embedNoChannel = new MessageEmbed()

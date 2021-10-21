@@ -15,6 +15,12 @@ module.exports = {
                     .setCustomId('commands')
                     .setPlaceholder('Comandos')
                     .addOptions([{
+                            label: 'Configuracion',
+                            description: 'Comandos para configurar el bot.',
+                            value: 'configuracion',
+                            emoji: '🔧'
+                        },
+                        {
                             label: 'Diversion',
                             description: 'Comandos para divertirte y reirte un rato.',
                             value: 'diversion',
@@ -51,7 +57,7 @@ module.exports = {
                             emoji: '🛠️'
                         },
                         {
-                            label: 'Games',
+                            label: 'Videojuegos',
                             description: 'Comandos para saber informacion sobre un juego',
                             value: 'games',
                             emoji: '🎮'

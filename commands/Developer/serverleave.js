@@ -22,7 +22,9 @@ module.exports = {
 
                     if(developers === null) return interaction.editReply({ embeds: [embedErrorOwner]}) 
 
-                    const id = interaction.options.getString('text')
+                    return interaction.reply('Comando en mantenimiento.')
+
+                /*const id = interaction.options.getString('text')
 
                     const promises= [
                         client.shard.fetchClientValues(`guilds.cache`),
@@ -46,7 +48,7 @@ module.exports = {
                         
                         interaction.editReply('Me he salido del servidor correctamente!')
                         
-                    })
+                    }) */
 
                 }
             }
