@@ -15,7 +15,7 @@ module.exports = {
     async execute(client, guild) {
       const guildModel = await guilds.findOne({ guildId: guild.id, guildName: guild.name })
 
-    if(guildModel === null){
+    if(guildModel){
     await guilds.deleteOne({
       guildId: guild.id.toString(),
       guildName: guild.name.toString(),
