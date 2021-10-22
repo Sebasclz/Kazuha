@@ -15,7 +15,7 @@ module.exports = {
                 new MessageButton()
                 .setLabel('Invitame')
                 .setStyle('LINK')
-                .setURL('https://discord.com/api/oauth2/authorize?client_id=891675957902053449&permissions=8&scope=bot%20applications.commands')
+                .setURL('https://discord.com/oauth2/authorize?client_id=898933117123973211&permissions=8&scope=bot%20applications.commands')
                 .setEmoji('🎉'),
 
                 new MessageButton()
@@ -24,28 +24,31 @@ module.exports = {
                 .setURL('https://discord.gg/V8CpAUhkSk')
                 .setEmoji('🔧'),
 
+                
                 new MessageButton()
-                .setLabel('Documentacion')
-                .setStyle('LINK')
-                .setURL('https://sebas-1.gitbook.io/kazuha/')
-                .setEmoji('📖'),
-
-                new MessageButton()
-                .setLabel('Votar por el bot (DiscordThings)')
+                .setLabel('Votar - DiscordThings')
                 .setStyle('LINK')
                 .setURL('https://discordthings.com/bot/898933117123973211/vote')
-                .setEmoji('💎')
+                .setEmoji('💎'),
+
+                new MessageButton()
+                .setLabel('Documentacion (Mantenimiento)')
+                .setStyle('LINK')
+                .setURL('https://sebas-1.gitbook.io/kazuha/')
+                .setEmoji('📖')
+                .setDisabled()
             )
 
             const embed = new MessageEmbed()
                 .setColor(config.defaultSuccessColor)
-                .setAuthor('👑 Creador del bot: S3BAS#3534')
-                .setTitle('Comando de ayuda | Kazuha')
+                .setTitle('Comando de ayuda | Slide')
                 .setDescription('Soy **Kazuha**, un bot multifuncional que sirve para todo lo que te puedas imaginar.\n\n**__Comandos__**\nPara ver mis comandos solo tendras que escribir `/commands`.')
                 .addField(`📚 Libreria`, `Discord.js v${version}`, true)
                 .addField(`📣 Versión`, `1.0.0`, true)
+                .addField('\u200b', '\u200b', true)
                 .addField(`💎 Fecha de creación`, `25-Ago-2021`, true)
-                .setImage('https://i.ibb.co/zGn2cKK/Untitled-Design.png')
+                .addField(`🔧 Desarrollado por`, `iSebas#3534`, true)
+                .setImage('https://i.ibb.co/gT0ds1Y/banner-bot.gif')
                 .setFooter('Comando de ayuda', client.user.displayAvatarURL())
                 .setTimestamp()
 

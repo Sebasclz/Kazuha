@@ -9,28 +9,48 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('game')
         .setDescription('Devuelve comandos de informacion de videojuegos')
-        //Command 1
+        .addSubcommandGroup(subcommandgroup => 
+            subcommandgroup
+            .setName('geometry-dash')
+            .setDescription('Comandos de Geometry Dash')
+        //Command 1 Geometry-Dash
         .addSubcommand(subcommand => 
             subcommand
-            .setName('gdlevel')
+            .setName('level')
             .setDescription('Regresa informacion de un nivel de Geometry Dash.')
             .addStringOption(option =>
                 option.setName('id')
                     .setDescription('ID del nivel')
                     .setRequired(true)))
-        //Command 2
+        //Command 2 Geometry-Dash
         .addSubcommand(subcommand => 
             subcommand
-            .setName('gduser')
+            .setName('user')
             .setDescription('Regresa informacion de un usuario de Geometry Dash.')
                 .addStringOption(option => 
                     option.setName('user')
                     .setDescription("Nombre del usuario")
                     .setRequired(true)))
-        //Command 3
+
+        //Command 3 Geometry-Dash
         .addSubcommand(subcommand => 
             subcommand
-            .setName('mcserver')
+            .setName('text')
+            .setDescription('Devuelve el texto con el formato de Geometry Dash.')
+                .addStringOption(option => 
+                    option.setName('text')
+                    .setDescription("Ingresa el texto")
+                    .setRequired(true))))
+
+        .addSubcommandGroup(subcommandgroup => 
+            subcommandgroup
+            .setName('minecraft')
+            .setDescription('Comandos de Minecraft')
+            
+        //Command 1 Minecraft
+        .addSubcommand(subcommand => 
+            subcommand
+            .setName('server')
             .setDescription('Regresa informacion de un servidor de Minecraft.')
                 .addStringOption(option => 
                     option.setName('ip')
@@ -40,37 +60,37 @@ module.exports = {
                     option.setName('port')
                     .setDescription("Puerto del servidor (Por defecto sera 25565)")))
 
-        //Command 3
+        //Command 2 Minecraft
         .addSubcommand(subcommand => 
             subcommand
-            .setName('mclogro')
+            .setName('logro')
             .setDescription('Haz un logro de Minecraft')
                 .addStringOption(option => 
                     option.setName('text')
                     .setDescription("Texto que aparecera en el logro")
                     .setRequired(true)))
 
-        //Command 3
+        //Command 3 Minecraft
         .addSubcommand(subcommand => 
             subcommand
-            .setName('mchypixel')
+            .setName('hypixel')
             .setDescription('Busca informacion de tu usuario en Hypixel')
                 .addStringOption(option => 
                     option.setName('name')
                     .setDescription("Nombre de tu cuenta de Minecraft")
                     .setRequired(true)))
 
-        //Command 3
+        //Command 4 Minecraft
         .addSubcommand(subcommand => 
             subcommand
-            .setName('mcskin')
+            .setName('skin')
             .setDescription('Regresa tu skin en version 3D')
                 .addStringOption(option => 
                     option.setName('name')
                     .setDescription("Nombre de tu cuenta de Minecraft")
-                    .setRequired(true))),
+                    .setRequired(true)))),
         async run(client, interaction){
-            if(interaction.options.getSubcommand() === "gdlevel"){
+            if(interaction.options.getSubcommand() === "level"){
                 /*
                 GDLEVEL
                 */
@@ -123,7 +143,7 @@ module.exports = {
                     ]})
                 };
             
-            } else if(interaction.options.getSubcommand() === "gduser"){
+            } else if(interaction.options.getSubcommand() === "user"){
                 /*
                 GDUSER
                 */
@@ -171,7 +191,33 @@ module.exports = {
                         ]})
                     };
 
-            } else if(interaction.options.getSubcommand() === "mcserver"){
+            } else if(interaction.options.getSubcommand() === "text"){
+                /*
+                GDTEXT
+                */
+                try{
+                    
+                    const textGD = interaction.options.getString('text') //Recogemos lo que puso el usuario
+
+                    const embed = new MessageEmbed() //Embed por si todo sale bien 
+                    .setColor(config.defaultSuccessColor)
+                    .setImage(`https://gdcolon.com/tools/gdlogo/img/${textGD}`)
+
+                    return interaction.reply({ embeds: [embed] })
+
+                    } catch(e){ //Si encuentra algun error lo reportara y le avisara al usuario.
+                        console.error(e)
+                        interaction.reply({ embeds: [
+                            new MessageEmbed()
+                            .setColor(config.defaultErrorColor)
+                            .setTitle('Error')
+                            .setDescription('Ha ocurrido un error fatal. Esto ha sido comunicado a los desarrolladores. No sigas utilizando este comando por favor.')
+                            .setTimestamp()
+                            .setFooter(interaction.user.username, interaction.user.avatarURL())
+                        ]})
+                    };
+                     
+            } else if(interaction.options.getSubcommand() === "server"){
                 /*
                 MCSERVER
                 */
@@ -213,7 +259,7 @@ module.exports = {
                     .setFooter(interaction.user.username, interaction.user.avatarURL())
                 ]})               
             };
-            } else if(interaction.options.getSubcommand() === "mclogro"){
+            } else if(interaction.options.getSubcommand() === "logro"){
                 /*
                 MCLOGRO
                 */
@@ -256,69 +302,69 @@ module.exports = {
                             .setFooter(interaction.user.username, interaction.user.avatarURL())
                         ]})
                     };
-                } else if(interaction.options.getSubcommand() === "mchypixel"){
+            } else if(interaction.options.getSubcommand() === "hypixel"){
                     /*
                     MCHYPIXEL
                     */
-                    try{
+                try{
                         
-                        const name = interaction.options.getString('name')
+                    const name = interaction.options.getString('name')
 
-                        try{
+                    try{
                             
-                            const hypixel = await minecraft.hypixel(name)
-                            const head = await minecraft.head(name)
+                        const hypixel = await minecraft.hypixel(name)
+                        const head = await minecraft.head(name)
 
-                            const embed = new MessageEmbed()
-                            .setColor(config.defaultSuccessColor)
-                            .setTitle(`Informacion de ${hypixel.player.displayname}`)
-                            .setThumbnail(head)
-                            .addField('Experiencia', "```" + hypixel.player.networkExp + "```", true)
-                            .addField('Monedas generales', "```" + hypixel.player.achievements.general_coins + "```", true)
-                            .addField('Karma', "```" + hypixel.player.karma + "```", true)
-                            .addField('Rango', "```" + `${hypixel.player.newPackageRank === undefined ? 'Usuario' : hypixel.player.newPackageRank}` + "```", false)
-                            .addField('Lenguaje que utiliza', "```" + hypixel.player.userLanguage + "```", false)
-                            .addField('Racha maxima de conexiones diarias', "```" + hypixel.player.rewardHighScore + "```", true)
-                            .addField('Racha actual de conexiones diarias', "```" + hypixel.player.rewardScore + "```", true)
-                            .addField('Total de regalos diarios obtenidos', "```" + hypixel.player.totalDailyRewards + "```", true)
-                            .setFooter(interaction.user.username, interaction.user.avatarURL())
-                            .setTimestamp()
+                        const embed = new MessageEmbed()
+                        .setColor(config.defaultSuccessColor)
+                        .setTitle(`Informacion de ${hypixel.player.displayname}`)
+                        .setThumbnail(head)
+                        .addField('Experiencia', "```" + hypixel.player.networkExp + "```", true)
+                        .addField('Monedas generales', "```" + hypixel.player.achievements.general_coins + "```", true)
+                        .addField('Karma', "```" + hypixel.player.karma + "```", true)
+                        .addField('Rango', "```" + `${hypixel.player.newPackageRank === undefined ? 'Usuario' : hypixel.player.newPackageRank}` + "```", false)
+                        .addField('Lenguaje que utiliza', "```" + hypixel.player.userLanguage + "```", false)
+                        .addField('Racha maxima de conexiones diarias', "```" + hypixel.player.rewardHighScore + "```", true)
+                        .addField('Racha actual de conexiones diarias', "```" + hypixel.player.rewardScore + "```", true)
+                        .addField('Total de regalos diarios obtenidos', "```" + hypixel.player.totalDailyRewards + "```", true)
+                        .setFooter(interaction.user.username, interaction.user.avatarURL())
+                        .setTimestamp()
 
-                            return interaction.reply({ embeds: [embed], components: [
-                                new MessageActionRow()
-                                .addComponents(
-                                    new MessageButton()
-                                    .setLabel('Cabeza del usuario')
-                                    .setStyle('LINK')
-                                    .setURL(`https://cravatar.eu/helmhead/${name}/600.png`)
-                                    .setEmoji('👤'),
+                        return interaction.reply({ embeds: [embed], components: [
+                            new MessageActionRow()
+                            .addComponents(
+                                new MessageButton()
+                                .setLabel('Cabeza del usuario')
+                                .setStyle('LINK')
+                                .setURL(`https://cravatar.eu/helmhead/${name}/600.png`)
+                                .setEmoji('👤'),
                                 )
                             ]})
 
-                        } catch {
-                            interaction.reply({ embeds: [
-                                new MessageEmbed()
-                                .setColor(config.defaultErrorColor)
-                                .setTitle('Error')
-                                .setDescription('No se ha encontrado el usuario, no existe o ha ocurrido un error. Por favor intentelo nuevamente.')
-                                .setTimestamp()
-                                .setFooter(interaction.user.username, interaction.user.avatarURL())
-                            ]})
-                        }
+                    } catch {
+                        interaction.reply({ embeds: [
+                            new MessageEmbed()
+                            .setColor(config.defaultErrorColor)
+                            .setTitle('Error')
+                            .setDescription('No se ha encontrado el usuario, no existe o ha ocurrido un error. Por favor intentelo nuevamente.')
+                            .setTimestamp()
+                            .setFooter(interaction.user.username, interaction.user.avatarURL())
+                        ]})
+                    }
 
-                        } catch(e){ //Si encuentra algun error lo reportara y le avisara al usuario.
-                            console.error(e)
-                            interaction.reply({ embeds: [
-                                new MessageEmbed()
-                                .setColor(config.defaultErrorColor)
-                                .setTitle('Error')
-                                .setDescription('Ha ocurrido un error fatal. Esto ha sido comunicado a los desarrolladores. No sigas utilizando este comando por favor.')
-                                .setTimestamp()
-                                .setFooter(interaction.user.username, interaction.user.avatarURL())
-                            ]})
-                        };
+                    } catch(e){ //Si encuentra algun error lo reportara y le avisara al usuario.
+                        console.error(e)
+                        interaction.reply({ embeds: [
+                            new MessageEmbed()
+                            .setColor(config.defaultErrorColor)
+                            .setTitle('Error')
+                            .setDescription('Ha ocurrido un error fatal. Esto ha sido comunicado a los desarrolladores. No sigas utilizando este comando por favor.')
+                            .setTimestamp()
+                            .setFooter(interaction.user.username, interaction.user.avatarURL())
+                        ]})
+                    };
 
-                    } else if(interaction.options.getSubcommand() === "mcskin"){
+                } else if(interaction.options.getSubcommand() === "skin"){
                     /*
                     MCSKIN
                     */
