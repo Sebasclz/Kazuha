@@ -12,6 +12,7 @@ module.exports = {
                 .setDescription("Ingresa la ID del servidor o el nombre en minusculas.")
                 .setRequired(true)),
                 async run(client, interaction){
+                    return interaction.reply({ content: 'El comando esta en mantenimiento'})
                     await interaction.deferReply({ ephemeral: true})
                     const developers = await developer.findOne({ developerId: interaction.user.id })
 
@@ -21,9 +22,7 @@ module.exports = {
                     .setDescription('Comando solo para desarrolladores')
 
                     if(developers === null) return interaction.editReply({ embeds: [embedErrorOwner]}) 
-
-                    return interaction.reply('Comando en mantenimiento.')
-
+                    
                 /*const id = interaction.options.getString('text')
 
                     const promises= [
