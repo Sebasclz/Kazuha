@@ -1,6 +1,5 @@
 const {Client, Intents, Collection} = require('discord.js') //Llamamos al NPM de Discord.js
 require('dotenv').config() //Llamamos al NPM dotenv
-const config = require('./config.json') //Requerimos el archivo de config para el token
 const { setInterval } = require('timers') //Necesitamos el setInterval para actualizar el estado del bot cada cierto tiempo
 
 //Intents para que funcione bien todos los comandos del bot
@@ -33,7 +32,7 @@ async function updateStatus(){ //Creamos la funcion de actualizar el estado
                 type: 'WATCHING'
             },
             {
-                name: 'Como estoy alojado en PyroNode',
+                name: 'como estoy alojado en PyroNode',
                 type: 'WATCHING'
             }
         ]
@@ -47,4 +46,4 @@ require("./handlers/events.js")(client);
 require("./handlers/commands.js")(client);
 require("./handlers/selectmenus.js")(client);
 
-client.login() 
+client.login()
