@@ -26,14 +26,14 @@ async function updateStatus(){ //Creamos la funcion de actualizar el estado
         const activity = [
             {
                 name: '/help',
-                type: 'WATCHING'
+                type: 'LISTENING'
             },
             {
                 name: `Servidores: ${guildNum} Miembros: ${memberNum}`,
                 type: 'WATCHING'
             },
             {
-                name: 'Alojado en PyroNode',
+                name: 'Como estoy alojado en PyroNode',
                 type: 'WATCHING'
             }
         ]

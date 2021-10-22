@@ -19,7 +19,7 @@ module.exports = async (client, interaction) => {
 
     if(userBlacklist) return;
 
-    const guildModel = await guilds.findOne({ guildId: interaction.guild.id })
+    const guildModel = await guilds.findOne({ guildId: interaction.guild.id, guildName: interaction.guild.name })
 
     if(guildModel === null){
     const newGuild = new guilds({
