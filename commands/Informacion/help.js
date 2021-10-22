@@ -26,7 +26,7 @@ module.exports = {
 
                 
                 new MessageButton()
-                .setLabel('Votar por el bot (DiscordThings)')
+                .setLabel('Votar - DiscordThings')
                 .setStyle('LINK')
                 .setURL('https://discordthings.com/bot/898933117123973211/vote')
                 .setEmoji('💎'),
