@@ -42,6 +42,7 @@ module.exports = {
             return interaction.reply({ embeds: [embed]})
 
             } else {
+                
                 const embedError = new Discord.MessageEmbed()
                 .setColor(config.defaultErrorColor)
                 .setTitle('Error')

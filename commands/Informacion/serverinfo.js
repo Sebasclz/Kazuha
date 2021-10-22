@@ -56,7 +56,7 @@ module.exports = {
                 .addField(`🏷️ Numero de roles`, "```" + `${interaction.guild.roles.cache.size}` + "```", true)
                 .addField(`😎 Numero de emojis`, "```" +  `${interaction.guild.emojis.cache.size}` + "```", true)
                 .addField(`🚀 Numero de boost`, "```" +  `${interaction.guild.premiumSubscriptionCount.toString()}` + "```", true)
-                .addField(`🚀Nivel de boost`, "```" + `${boostLevels[interaction.guild.premiumTier]}` + "```", true)
+                .addField(`🚀 Nivel de boost`, "```" + `${boostLevels[interaction.guild.premiumTier]}` + "```", true)
                 .setColor(config.defaultSuccessColor)
                 .setFooter(`${guild.name}`, guild.iconURL({ dynamic: true }))
                 .setTimestamp()

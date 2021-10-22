@@ -4,7 +4,7 @@ const config = require('./config.json') //Requerimos el archivo de config para e
 const { setInterval } = require('timers') //Necesitamos el setInterval para actualizar el estado del bot cada cierto tiempo
 
 //Intents para que funcione bien todos los comandos del bot
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_PRESENCES]})
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES]})
 
 //Creamos las colecciones de los comandos y selectmenus 
 client.commands = new Collection()
@@ -22,7 +22,23 @@ async function updateStatus(){ //Creamos la funcion de actualizar el estado
     Promise.all(promises).then(results => { //Sumamos cada uno de los servidores y miembros
         const guildNum = results[0].reduce((acc, guildCount) => acc + guildCount, 0)
         const memberNum = results[1].reduce((acc, memberCount) => acc + memberCount, 0)
-        client.user.setActivity(`Servidores: ${guildNum} Miembros: ${memberNum}`, {type: 'LISTENING'}) //Creamos la actividad del bot
+
+        const activity = [
+            {
+                name: '/help',
+                type: 'WATCHING'
+            },
+            {
+                name: `Servidores: ${guildNum} Miembros: ${memberNum}`,
+                type: 'WATCHING'
+            },
+            {
+                name: 'Alojado en PyroNode',
+                type: 'WATCHING'
+            }
+        ]
+
+        client.user.setActivity(activity[Math.floor(Math.random() * activity.length)]) //Creamos la actividad del bot
     }).catch(console.error) //Si hay error no los dira
 }
 
@@ -31,4 +47,4 @@ require("./handlers/events.js")(client);
 require("./handlers/commands.js")(client);
 require("./handlers/selectmenus.js")(client);
 
-client.login(config.token) //Requerimos el token
+client.login() 

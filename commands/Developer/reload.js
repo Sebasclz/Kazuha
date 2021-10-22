@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders')
 const config = require('../../config.json')
 const { MessageEmbed } = require('discord.js')
 const developer = require('../../models/developer.js')
+require('dotenv').config()
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -20,7 +21,7 @@ module.exports = {
                         if(developers === null) return interaction.editReply({ embeds: [embedErrorOwner]}) 
 
                         await interaction.editReply('`>>> Reinicio en proceso <<<`').then(() => client.destroy()) //Destruimos la conexion del bot
-                        .then(() => client.login(config.token)) //Volvemos a encenderlo
+                        .then(() => client.login(process.env.token)) //Volvemos a encenderlo
                         await interaction.editReply('`>>> Reinicio completado <<<`') //Avisamos en el chat
                         console.log('>>> Reinicio completado <<<') //Aviso en consola
 

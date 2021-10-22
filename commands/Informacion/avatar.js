@@ -81,7 +81,7 @@ module.exports = {
                 const embed = new MessageEmbed() //Creamos embed
                 .setColor(config.defaultSuccessColor)
                 .setDescription(`El avatar de ${user} es:`)
-                .setImage(user.displayAvatarURL({ dynamic: true, size: 4096, format: 'png', size: 4096 }))
+                .setImage(user.displayAvatarURL({ dynamic: false, size: 4096, format: 'png', size: 4096 }))
 
                 return interaction.reply({ embeds: [embed], components: [row] }) //Ponemos los avatars con sus respectivos links
 
@@ -119,7 +119,7 @@ module.exports = {
 
                 const embed = new MessageEmbed() //Creamos embed
                 .setColor(config.defaultSuccessColor)
-                .setDescription(`El avatar de ${interaction.user} es:`)
+                .setDescription(`Tu avatar es:`)
                 .setImage(interaction.user.displayAvatarURL({ dynamic: true, size: 4096, format: 'png', size: 4096 }))
 
                 return interaction.reply({ embeds: [embed], components: [row] }) 
@@ -153,8 +153,8 @@ module.exports = {
 
             const embed = new MessageEmbed() //Creamos embed
             .setColor(config.defaultSuccessColor)
-            .setDescription(`El avatar de ${interaction.user} es:`)
-            .setImage(interaction.user.displayAvatarURL({ dynamic: true, size: 4096, format: 'png', size: 4096 }))
+            .setDescription(`Tu avatar es:`)
+            .setImage(interaction.user.displayAvatarURL({ dynamic: false, size: 4096, format: 'png', size: 4096 }))
 
             return interaction.reply({ embeds: [embed], components: [row] })
 
