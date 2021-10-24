@@ -10,49 +10,27 @@ module.exports = {
     async run(client, interaction){
         try{
 
-            const row = new MessageActionRow()
-            .addComponents(
-                new MessageButton()
-                .setLabel('Invitame')
-                .setStyle('LINK')
-                .setURL('https://discord.com/oauth2/authorize?client_id=898933117123973211&permissions=8&scope=bot%20applications.commands')
-                .setEmoji('🎉'),
-
-                new MessageButton()
-                .setLabel('Servidor de soporte')
-                .setStyle('LINK')
-                .setURL('https://discord.gg/V8CpAUhkSk')
-                .setEmoji('🔧'),
-
-                
-                new MessageButton()
-                .setLabel('Votar - DiscordThings')
-                .setStyle('LINK')
-                .setURL('https://discordthings.com/bot/898933117123973211/vote')
-                .setEmoji('💎'),
-
-                new MessageButton()
-                .setLabel('Documentacion (Mantenimiento)')
-                .setStyle('LINK')
-                .setURL('https://sebas-1.gitbook.io/kazuha/')
-                .setEmoji('📖')
-                .setDisabled()
-            )
-
             const embed = new MessageEmbed()
                 .setColor(config.defaultSuccessColor)
                 .setTitle('Comando de ayuda | Kazuha')
-                .setDescription('Soy **Kazuha**, un bot multifuncional que sirve para todo lo que te puedas imaginar.\n\n**__Comandos__**\nPara ver mis comandos solo tendras que escribir `/commands`.')
-                .addField(`📚 Libreria`, `Discord.js v${version}`, true)
-                .addField(`📣 Versión`, `1.0.0`, true)
-                .addField('\u200b', '\u200b', true)
-                .addField(`💎 Fecha de creación`, `25-Ago-2021`, true)
-                .addField(`🔧 Desarrollado por`, `iSebas#3534`, true)
+                .setDescription(`Soy **Kazuha**, un bot multifuncional. Tengo comandos de videojuegos, interacciones, diversion, y mas!
+
+• __Comandos:__
+Para ver mis comandos solo tendras que escribir \`/commands\`
+
+• __Invitarme a tu servidor:__
+Si quieres invitarme a tu servidor solo haz [click aqui](https://discord.com/oauth2/authorize?client_id=898933117123973211&permissions=8&scope=bot%20applications.commands)
+
+• __Servidor de soporte:__
+Entra a mi servidor de soporte dando [click aqui](https://discord.gg/V8CpAUhkSk)
+
+• __Bot desarrollado por:__
+[iSebas#3534](https://twitter.com/_SebasTD)`)
                 .setImage('https://i.ibb.co/gT0ds1Y/banner-bot.gif')
                 .setFooter('Comando de ayuda', client.user.displayAvatarURL())
                 .setTimestamp()
 
-            interaction.reply({ embeds: [embed], components: [row] })
+            interaction.reply({ embeds: [embed] })
             } catch(e){
                 console.error(e)
                 interaction.reply({ embeds: [

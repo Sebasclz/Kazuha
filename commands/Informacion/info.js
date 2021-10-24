@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
-const { MessageEmbed, MessageActionRow, MessageButton, Util } = require('discord.js')
+const { MessageEmbed, MessageActionRow, MessageButton, Util, version } = require('discord.js')
 const config = require('../../config.json')
 const moment = require('moment')
 require('moment-duration-format')
@@ -372,6 +372,29 @@ module.exports = {
                 BOT
                 */
         try{
+
+            const row = new MessageActionRow()
+            .addComponents(
+                new MessageButton()
+                .setLabel('Invitame')
+                .setStyle('LINK')
+                .setURL('https://discord.com/oauth2/authorize?client_id=898933117123973211&permissions=8&scope=bot%20applications.commands')
+                .setEmoji('🎉'),
+
+                new MessageButton()
+                .setLabel('Servidor de soporte')
+                .setStyle('LINK')
+                .setURL('https://discord.gg/V8CpAUhkSk')
+                .setEmoji('🔧'),
+
+                
+                new MessageButton()
+                .setLabel('Votar')
+                .setStyle('LINK')
+                .setURL('https://discordthings.com/bot/898933117123973211/vote')
+                .setEmoji('💎'),
+            )
+
             moment.updateLocale('es', {
                 months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
                 monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split('_'),
@@ -407,18 +430,31 @@ module.exports = {
     
                 const embed = new MessageEmbed()
                     .setColor(config.defaultSuccessColor)
-                    .setAuthor(`Estado de ${client.user.username}`)
-                    .setThumbnail(client.user.displayAvatarURL({format: 'png', dynamic: true, size: 4096}))
-                    .addField(`📡 Rendimiento`, "```" + `RAM: ${diagramMaker(usedRAM, freeRAM)} [${Math.round((100 * usedRAM) / (usedRAM + freeRAM))}%]\nCPU: ${diagramMaker(cpuUsage, 100 - cpuUsage)} [${Math.round(cpuUsage)}%]` + "```", false)
-                    .addField(`💻 Sistema`, "```" + `\n Procesador: Intel \n RAM Total: ${(os.totalmem() / 1024 / 1024 / 1024).toFixed(2)} GB` + "```", false)
-                    .addField(`💻 Sistema operativo`, "```" + `${os.type} ${os.release} ${os.arch}` + "```", false)
-                    .addField(`🙋‍♂️ Total de usuarios`, "```" + `${totalMembers}` + "```", true)
-                    .addField(`😎 Total de emojis`, "```" + `${totalEmojis}` + "```", true)
-                    .addField(`💬 Total de servidores`, "```" + `${totalGuilds}` + "```", true)
-                    .addField(`⏳ Tiempo de actividad del bot`, "```" + `${moment.duration(client.uptime).format([`D [Dias], H [Horas], m [Minutos], s [Segundos]`])}` + "```", true)
-                    .addField(`⏳ Tiempo de actividad del host`, "```" + `${moment.duration(os.uptime * 1000).format([`D [Dias], H [Horas], m [Minutos], s [Segundos]`])}` + "```", true)
-                    .addField(`⏳ Ultimo inicio`, "```" + `${moment(client.readyAt).format("LLLL")}` + "```", true)
-                interaction.editReply({ content: ' ', embeds: [embed] }) 
+                    .setAuthor(`${client.user.username}`, client.user.avatarURL({ format: 'png' }))
+                    .setThumbnail(client.user.avatarURL({format: 'png', size: 4096}))
+                    .setDescription(`\`\`\`asciidoc\n== Informacion basica ==
+• Bot Name   :: ${client.user.username}
+• Bot ID     :: ${client.user.id}
+• Developer  :: iSebas#3534
+• Vers Bot   :: v1.2
+• Creado el  :: 25 de agosto\n
+== Estadisticas ==
+• Usuarios   :: ${totalMembers}
+• Emojis     :: ${totalEmojis}
+• Guilds     :: ${totalGuilds}\n
+== Informacion tecnica ==
+• Uso RAM    :: ${diagramMaker(usedRAM, freeRAM)} [${Math.round((100 * usedRAM) / (usedRAM + freeRAM))}%]
+• Uso CPU    :: ${diagramMaker(cpuUsage, 100 - cpuUsage)} [${Math.round(cpuUsage)}%]
+• CPU        :: AMD
+• RAM        :: ${(os.totalmem() / 1024 / 1024 / 1024).toFixed(2)} GB
+• SO         :: ${os.type} ${os.release} ${os.arch}
+• En linea   :: ${moment.duration(client.uptime).format([`D [Dias], H [Horas], m [Minutos], s [Segundos]`])}
+• Ult Inicio :: ${moment(client.readyAt).format("LLL")}\n
+== Informacion extra ==
+• Hosting    :: PyroNode
+• Discord.js :: v${version}
+• Node       :: ${process.version}\`\`\``)
+                interaction.editReply({ content: ' ', embeds: [embed], components: [row] }) 
             })
             } catch(e){
                 console.error(e)
