@@ -1,5 +1,4 @@
 const blacklist = require('../models/blacklist.js')
-const guilds = require('../models/guilds.js')
 const channelModel = require('../models/config.js')
 
 module.exports = async (client, interaction) => {
@@ -7,10 +6,12 @@ module.exports = async (client, interaction) => {
 
     if (!command) return
 
-    const channelInteraction = await channelModel.findOne({ guildId: interaction.guild.id, guildChannelId: interaction.channel.id})
+    const channelID = interaction.channel.id
+    
+    const channelInteraction = await channelModel.findOne({ guildChannelId: channelID.toString()})
 
-    if(channelInteraction) {
-        if(channelInteraction.guildChannelId === interaction.channel.id) return;
+    if(channelInteraction !== null) {
+        if(channelInteraction.guildChannelId === channelID.toString()) return;
     }
 
     const userBlacklist = await blacklist.findOne({
@@ -18,18 +19,6 @@ module.exports = async (client, interaction) => {
     })
 
     if(userBlacklist) return;
-
-    const guildModel = await guilds.findOne({ guildId: interaction.guild.id, guildName: interaction.guild.name })
-
-    if(guildModel === null){
-    const newGuild = new guilds({
-        guildId: interaction.guild.id.toString(),
-        guildName: interaction.guild.name.toString(),
-        ownerId: interaction.guild.ownerId.toString(),
-        memberCount: interaction.guild.memberCount.toString(),
-    })
-    newGuild.save().catch(e => console.log(e))
-}
 
     try {
         await command.run(client, interaction)

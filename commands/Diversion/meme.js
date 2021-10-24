@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js')
 const config = require('../../config.json')
-const memes = require('discord-memes')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,7 +9,7 @@ module.exports = {
         async run(client, interaction){
             try{
 
-                let memesImagenEspañol = [
+                const memesImagenEspañol = [
                     "https://cdn.discordapp.com/attachments/792519367132708875/796025866235674644/2Q.png",
                     "https://cdn.discordapp.com/attachments/792519367132708875/796025932678561792/9k.png",
                     "https://cdn.discordapp.com/attachments/792519367132708875/796026182834847764/tumblr_myvvolenkE1sj0yr5o1_r1_500.png",
@@ -67,7 +66,6 @@ module.exports = {
                     "https://cdn.discordapp.com/attachments/792519367132708875/798207597136183326/Dy5Iz8hW0AAOU1v.png",
                     "https://cdn.discordapp.com/attachments/536338240031031333/798203398078857226/20210108_121155.jpg",
                     "https://cdn.discordapp.com/attachments/536338240031031333/797965793223901194/FB_IMG_1609696551955.jpg",
-                    "https://scontent-mia3-1.xx.fbcdn.net/v/t1.0-0/p180x540/136046841_112429970745421_4543281447207991024_n.jpg",
                     "https://cdn.discordapp.com/attachments/792519367132708875/801090225638998096/jOtCkoE.png",
                     "https://cdn.discordapp.com/attachments/792519367132708875/801090681925795870/mnPdPpF.png",
                     "https://cdn.discordapp.com/attachments/792519367132708875/801090880496467968/0JsCIY1.png",
@@ -143,6 +141,7 @@ module.exports = {
                 
                 return interaction.reply({ content: `${memes}`})
 
+                
             } catch (e){ //Si da error le avisamos al usuario y lo reportamos al servidor
                 console.error(e)
                 interaction.reply({ embeds: [

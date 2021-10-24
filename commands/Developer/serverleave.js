@@ -9,10 +9,10 @@ module.exports = {
         .setDescription('Haz que el bot salga de un servidor.')
             .addStringOption(option => 
                 option.setName('text')
-                .setDescription("Ingresa la ID del servidor o el nombre en minusculas.")
+                .setDescription("Ingresa la ID del servidor")
                 .setRequired(true)),
                 async run(client, interaction){
-                    await interaction.deferReply({ ephemeral: true})
+                    await interaction.deferReply()
                     const developers = await developer.findOne({ developerId: interaction.user.id })
 
                     const embedErrorOwner = new MessageEmbed() //Diremos que retorne un embed de error cuando el autor no sea el creador del bot
@@ -21,34 +21,22 @@ module.exports = {
                     .setDescription('Comando solo para desarrolladores')
 
                     if(developers === null) return interaction.editReply({ embeds: [embedErrorOwner]}) 
-
-                    return interaction.reply('Comando en mantenimiento.')
-
-                /*const id = interaction.options.getString('text')
-
-                    const promises= [
-                        client.shard.fetchClientValues(`guilds.cache`),
-                    ]
                     
-                    Promise.all(promises).then(async results => {
-                        const guilds = results[0]
+                    const id = interaction.options.getString('text')
 
+                    const guild = client.guilds.cache.get(`${id}`)
 
-                        return console.log(await guilds)
-
-                        
-                        const embedErrorNoServer = new MessageEmbed()
-                        .setColor(config.defaultErrorColor)
-                        .setTitle('Error')
-                        .setDescription('No encontre el servidor')
-                        
-                        if(!serverReal) return interaction.editReply({ embeds: [embedErrorNoServer]})
-    
-                        await serverReal.leave()
+                    if(!guild){
+                        return interaction.editReply({ embeds: [
+                            new MessageEmbed()
+                            .setColor(config.defaultErrorColor)
+                            .setTitle('Error')
+                            .setDescription('No encontre el servidor')
+                        ]})
+                    }
+                        await guild.leave()
                         
                         interaction.editReply('Me he salido del servidor correctamente!')
                         
-                    }) */
-
+                    }
                 }
-            }

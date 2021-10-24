@@ -12,15 +12,17 @@ module.exports = {
 
                     await interaction.reply({ content: 'Pinging...'})  
 
-                    const pingUser = (Date.now() - interaction.createdTimestamp).toString().replace("-", "")
+                    const messages = (Date.now() - interaction.createdTimestamp).toString().replace("-", "")
 
                         const embed = new MessageEmbed()
                         .setColor(config.defaultSuccessColor)
                         .setTitle(`🏓 Pong!`)
                         .setThumbnail(interaction.user.displayAvatarURL({ format: 'png', dynamic: true, size: 4096}))
-                        .setDescription(`**BOT: ` + ping + `ms**\nEste es el ping que tiene el bot con la API de Discord.\n\n**Tu ping: ` + pingUser + `ms**\nEste es el ping que tienes vos con la API de Discord`)
-                        .setFooter(`Shard Id: ${interaction.guild.shardId}`, interaction.user.avatarURL())
+                        .addField(`Bot`, "`" + `${ping}` + "ms`", true)
+                        .addField(`Mensajes`, "`" + `${messages}` + "ms`", true)
+                        .setFooter(`Shard Id: ${interaction.guild.shardId}`, interaction.user.avatarURL({ dynamic: true }))
                         .setTimestamp()
+
                         return interaction.editReply({content: ' ', embeds: [embed]}).catch(() => {
                             const embedError = new MessageEmbed()
                             .setTitle('Error')

@@ -13,6 +13,7 @@ module.exports = {
             subcommandgroup
             .setName('geometry-dash')
             .setDescription('Comandos de Geometry Dash')
+            
         //Command 1 Geometry-Dash
         .addSubcommand(subcommand => 
             subcommand
@@ -325,7 +326,7 @@ module.exports = {
                         .addField('Rango', "```" + `${hypixel.player.newPackageRank === undefined ? 'Usuario' : hypixel.player.newPackageRank}` + "```", false)
                         .addField('Lenguaje que utiliza', "```" + hypixel.player.userLanguage + "```", false)
                         .addField('Racha maxima de conexiones diarias', "```" + hypixel.player.rewardHighScore + "```", true)
-                        .addField('Racha actual de conexiones diarias', "```" + hypixel.player.rewardScore + "```", true)
+                        .addField('Racha actual de conexiones diarias', "```" + hypixel.player.rewardStreak + "```", true)
                         .addField('Total de regalos diarios obtenidos', "```" + hypixel.player.totalDailyRewards + "```", true)
                         .setFooter(interaction.user.username, interaction.user.avatarURL())
                         .setTimestamp()
