@@ -23,7 +23,7 @@ module.exports = {
                     if(developers === null) return interaction.editReply({ embeds: [embedErrorOwner]}) 
 
                     try{
-                        const limit = 1950;
+                        const limit = 4096;
                         let code = interaction.options.getString('code')
                         let evalued = eval(code)
                         if(typeof evalued !== 'string')

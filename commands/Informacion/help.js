@@ -19,7 +19,7 @@ module.exports = {
                 .setEmoji('🎉'),
 
                 new MessageButton()
-                .setLabel('Soporte')
+                .setLabel('Servidor de soporte')
                 .setStyle('LINK')
                 .setURL('https://discord.gg/V8CpAUhkSk')
                 .setEmoji('🔧'),
@@ -41,7 +41,7 @@ module.exports = {
 
             const embed = new MessageEmbed()
                 .setColor(config.defaultSuccessColor)
-                .setTitle('Comando de ayuda | Slide')
+                .setTitle('Comando de ayuda | Kazuha')
                 .setDescription('Soy **Kazuha**, un bot multifuncional que sirve para todo lo que te puedas imaginar.\n\n**__Comandos__**\nPara ver mis comandos solo tendras que escribir `/commands`.')
                 .addField(`📚 Libreria`, `Discord.js v${version}`, true)
                 .addField(`📣 Versión`, `1.0.0`, true)

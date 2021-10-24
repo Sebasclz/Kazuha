@@ -104,7 +104,7 @@ module.exports = {
                     const embed = new MessageEmbed()
                     .setDescription(`${interaction.user} le ha dado una galleta :cookie: a ${user}`)
                     .addField(`Cantidad de galletas que regalaste`, '`' + `${newCookieGiven}` + '`', true)
-                    .addField(`Cantidad de galletas que te dieron`, '`' + `${cookieReceived}` + '`', true)
+                    .addField(`Cantidad de galletas que te regalaron`, '`' + `${cookieReceived}` + '`', true)
                     .setColor(config.defaultSuccessColor)
 
                     return interaction.reply({ embeds: [embed]}) //Enviamos finalmente el puto mensaje y se termina el comando
