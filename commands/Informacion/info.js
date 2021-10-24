@@ -254,12 +254,14 @@ module.exports = {
             const role = interaction.options.getRole('role')
 
             const roleName = capitalize(`${role.name}`)
+                        
+            const roleSize = interaction.guild.roles.cache.get(role.id)
 
             const embed = new MessageEmbed()
             .setTitle(`Informacion sobre el rol ${roleName}`)
             .addField('Nombre', "```" + `${role.name}` + "```", true)
             .addField('ID del rol', "```" + `${role.id}` + "```", true)
-            .addField('Miembros con el rol', "```" + `${role.members.size === 0 ? 'Ningun miembro tiene el rol' : role.members.size}` + "```", false)
+            .addField('Miembros con el rol', "```" + `${roleSize.members.size}` + "```", false)
             .addField('Posicion', "```" + `${role.rawPosition}` + "```", false)
             .addField('Color en hexadecimal', "```" + `${role.hexColor}` + "```", false)
             .addField('Mencionable', "```" + `${role.mentionable === true ? 'Si' : 'No'}` + "```", true)
