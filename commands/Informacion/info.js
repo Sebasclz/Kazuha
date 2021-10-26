@@ -59,11 +59,7 @@ module.exports = {
         .addSubcommand(subcommand => 
             subcommand
             .setName('dthings')
-                .setDescription('Devuelve informacion de un bot en DiscordThings.')
-                .addUserOption(option =>
-                    option.setName('bot')
-                    .setDescription('Menciona al bot para obtener su informacion')
-                    .setRequired(true))),
+                .setDescription('Devuelve informacion del bot en DiscordThings.')),
         async run(client, interaction){
             if(interaction.options.getSubcommand() === 'user'){
                 /*
@@ -467,6 +463,7 @@ module.exports = {
 • Node       :: ${process.version}\`\`\``)
                 interaction.editReply({ content: ' ', embeds: [embed], components: [row] }) 
             })
+
             } catch(e){
                 console.error(e)
                 interaction.reply({ embeds: [
@@ -480,6 +477,10 @@ module.exports = {
             };
 
             } else if(interaction.options.getSubcommand() === 'dthings'){
+                /*
+                DTHINGS
+                */
+            try{
                 const botMention = interaction.options.getUser('bot')
 
                 const botId = botMention.id
@@ -493,8 +494,34 @@ module.exports = {
                     return interaction.reply({ embeds: [embed]})
                 }
 
-                dApi.getInfoBot(`${botId}`).then(console.log)
+                const infoBot = dApi.getInfoBot(`${botId}`)
                 
+                return interaction.reply({embeds: [
+                    new MessageEmbed()
+                .setTitle(`Informacion de ${infoBot.name}`)
+                .setThumbnail(`${infoBot.avatar}`)
+                .addField('Nombre del bot', "```" + `${infoBot.name}` + "```", true)
+                .addField('ID del bot', "```" + `${infoBot.id}` + "```", true)
+                .addField('Descripcion', "```" + `${infoBot.description}` + "```", true)
+                .addField('Prefix', "```" + `${infoBot.prefix}` + "```", true)
+                .addField('Votos', "```" + `${infoBot.votes}` + "```", true)
+                .addField('Invitaciones', "```" + `${infoBot.invites}` + "```", true)
+                .addField('Tags', "```" + `${infoBot.tags.join(', ')}`, + "```", true)
+                .setFooter(`Owner del bot: ${infoBot.owner}`)
+                .setTimestamp()
+            ]})
+            
+            } catch(e) {
+                console.log(e)
+                interaction.reply({ embeds: [
+                    new MessageEmbed()
+                    .setColor(config.defaultErrorColor)
+                    .setTitle('Error')
+                    .setDescription('Ha ocurrido un error fatal. Esto ha sido comunicado a los desarrolladores. No sigas utilizando este comando por favor.')
+                    .setTimestamp()
+                    .setFooter(interaction.user.username, interaction.user.avatarURL())
+                ]})
+            };
             } else {
                 return interaction.reply('No has seleccionado ningun subcomando.')
             }
