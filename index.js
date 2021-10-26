@@ -2,7 +2,11 @@ const { ShardingManager } = require('discord.js');
 require('dotenv').config()
 
 const manager = new ShardingManager('./bot.js', { 
-    token: process.env.token
+    token: process.env.token,
+    totalShards: "auto",
+    shardList: "auto",
+    mode: `process`,
+    respawn: true,
 });
 
 manager.on('shardCreate', async (shard) => {

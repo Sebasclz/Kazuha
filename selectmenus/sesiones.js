@@ -89,6 +89,24 @@ module.exports = {
                     return interaction.update({ content: ' ', embeds: [embed], components: []});
                 });
                 break
+            case 'spellCast':
+                client.discordTogether.createTogetherCode(interaction.member.voice.channel.id, 'spellcast').then(async invite => {
+                    const embed = new MessageEmbed()
+                    .setColor(config.defaultSuccessColor)
+                    .setDescription(`**[Haz click aqui](${invite.code})**`);
+                    
+                    return interaction.update({ content: ' ', embeds: [embed], components: []});
+                });
+                break
+            case 'awkword':
+                client.discordTogether.createTogetherCode(interaction.member.voice.channel.id, 'awkword').then(async invite => {
+                    const embed = new MessageEmbed()
+                    .setColor(config.defaultSuccessColor)
+                    .setDescription(`**[Haz click aqui](${invite.code})**`);
+                    
+                    return interaction.update({ content: ' ', embeds: [embed], components: []});
+                });
+                break
             }
         }
     }

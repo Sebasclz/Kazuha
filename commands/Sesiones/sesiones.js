@@ -61,6 +61,18 @@ module.exports = {
                     description: 'Inicia una sesion de Doodle Crew',
                     value: 'doodleCrew',
                     emoji: '🖌️'
+                },
+                {
+                    label: 'SpellCast',
+                    description: 'Inicia una sesion de SpellCast',
+                    value: 'spellCast',
+                    emoji: '🧙'
+                },
+                {
+                    label: 'Awkword',
+                    description: 'Inicia una sesion de Awkword',
+                    value: 'awkword',
+                    emoji: '❓'
                 }
             ])
         )
