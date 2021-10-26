@@ -7,6 +7,7 @@ const capitalize = require('../../functions/capitalize')
 const osu = require('node-os-utils')
 const os = require('os')
 const diagramMaker = require('../../functions/diagramMaker.js')
+const dApi = require('dthings-api')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -52,7 +53,17 @@ module.exports = {
         .addSubcommand(subcommand => 
             subcommand
             .setName('bot')
-                .setDescription('Devuelve informacion del bot.')),
+                .setDescription('Devuelve informacion del bot.'))
+
+        //Command 5
+        .addSubcommand(subcommand => 
+            subcommand
+            .setName('dthings')
+                .setDescription('Devuelve informacion de un bot en DiscordThings.')
+                .addUserOption(option =>
+                    option.setName('bot')
+                    .setDescription('Menciona al bot para obtener su informacion')
+                    .setRequired(true))),
         async run(client, interaction){
             if(interaction.options.getSubcommand() === 'user'){
                 /*
@@ -467,6 +478,23 @@ module.exports = {
                     .setFooter(interaction.user.username, interaction.user.avatarURL())
                 ]})
             };
+
+            } else if(interaction.options.getSubcommand() === 'dthings'){
+                const botMention = interaction.options.getUser('bot')
+
+                const botId = botMention.id
+
+                if(!botMention.bot){
+                    const embed = new MessageEmbed()
+                    .setTitle('Error')
+                    .setDescription('Mencionaste a alguien que no es un bot')
+                    .setColor(config.defaultErrorColor)
+
+                    return interaction.reply({ embeds: [embed]})
+                }
+
+                dApi.getInfoBot(`${botId}`).then(console.log)
+                
             } else {
                 return interaction.reply('No has seleccionado ningun subcomando.')
             }
