@@ -481,20 +481,8 @@ module.exports = {
                 DTHINGS
                 */
             try{
-                const botMention = interaction.options.getUser('bot')
 
-                const botId = botMention.id
-
-                if(!botMention.bot){
-                    const embed = new MessageEmbed()
-                    .setTitle('Error')
-                    .setDescription('Mencionaste a alguien que no es un bot')
-                    .setColor(config.defaultErrorColor)
-
-                    return interaction.reply({ embeds: [embed]})
-                }
-
-                const infoBot = dApi.getInfoBot(`${botId}`)
+                const infoBot = dApi.getInfoBot('898933117123973211')
                 
                 return interaction.reply({embeds: [
                     new MessageEmbed()
@@ -510,7 +498,7 @@ module.exports = {
                 .setFooter(`Owner del bot: ${infoBot.owner}`)
                 .setTimestamp()
             ]})
-            
+
             } catch(e) {
                 console.log(e)
                 interaction.reply({ embeds: [
