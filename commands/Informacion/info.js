@@ -225,7 +225,6 @@ module.exports = {
                 .addField(`👑 Dueño del servidor`, "```" + `${(await interaction.guild.fetchOwner()).user.tag}` + "```", false)
                 .addField(`👑 ID del dueño`, "```" + `${interaction.guild.ownerId}` + "```", false)
                 .addField(`🙋‍♂️ Numero de miembros`, "```" + `${interaction.guild.memberCount.toString()}` + "```", true)
-                .addField(`🤖 Numero de bots`, "```" + `${interaction.guild.members.cache.filter(m => m.user.bot).size}` + "```", true)
                 .addField(`🏷️ Numero de roles`, "```" + `${interaction.guild.roles.cache.size}` + "```", true)
                 .addField(`😎 Numero de emojis`, "```" +  `${interaction.guild.emojis.cache.size}` + "```", true)
                 .addField(`🚀 Numero de boost`, "```" +  `${interaction.guild.premiumSubscriptionCount.toString()}` + "```", true)
