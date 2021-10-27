@@ -222,7 +222,7 @@ module.exports = {
                 weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
               })
             
-            const embed = new MessageEmbed()
+                 const embed = new MessageEmbed()
                 .setThumbnail(interaction.guild.iconURL({ format: 'png', dynamic: true }))
                 .addField(`🏆 Nombre del servidor`, "```" + `${interaction.guild.name}` + "```", true)
                 .addField(`🔗 ID del servidor`, "```" + `${interaction.guild.id}` + "```", true)
@@ -234,12 +234,19 @@ module.exports = {
                 .addField(`🙋‍♂️ Numero de miembros`, "```" + `${interaction.guild.memberCount.toString()}` + "```", true)
                 .addField(`🏷️ Numero de roles`, "```" + `${interaction.guild.roles.cache.size}` + "```", true)
                 .addField(`😎 Numero de emojis`, "```" +  `${interaction.guild.emojis.cache.size}` + "```", true)
+                .addField(`💬 Canales de texto`, "```" + `${interaction.guild.channels.cache.filter(c => c.type === 'GUILD_TEXT').size}` + "```", true)
+                .addField(`🔊 Canales de voz`, "```" + `${interaction.guild.channels.cache.filter(c => c.type === 'GUILD_VOICE').size}` + "```", true)
+                .addField(`🗂️ Categorias`, "```" + `${interaction.guild.channels.cache.filter(c => c.type === 'GUILD_CATEGORY').size}` + "```", true)
                 .addField(`🚀 Numero de boost`, "```" +  `${interaction.guild.premiumSubscriptionCount.toString()}` + "```", true)
                 .addField(`🚀 Nivel de boost`, "```" + `${boostLevels[interaction.guild.premiumTier]}` + "```", true)
                 .setColor(config.defaultSuccessColor)
                 .setFooter(`${guild.name}`, guild.iconURL({ dynamic: true }))
                 .setTimestamp()
-            await interaction.reply({ embeds: [embed], components: [row]})
+                 
+                 await interaction.reply({ embeds: [embed], components: [row]})
+           
+            
+           
             } catch(e){
                 console.error(e)
                 interaction.reply({ embeds: [
@@ -396,10 +403,16 @@ module.exports = {
 
                 
                 new MessageButton()
-                .setLabel('Votar')
+                .setLabel('Votar - DiscordThings')
                 .setStyle('LINK')
                 .setURL('https://discordthings.com/bot/898933117123973211/vote')
                 .setEmoji('💎'),
+                
+                new MessageButton()
+                .setLabel('Votar - Top.gg')
+                .setStyle('LINK')
+                .setURL('https://top.gg/bot/898933117123973211')
+                .setEmoji('💎')
             )
 
             moment.updateLocale('es', {
@@ -417,6 +430,7 @@ module.exports = {
             const promises= [
                 client.shard.fetchClientValues('guilds.cache.size'),
                 client.shard.fetchClientValues('emojis.cache.size'),
+                client.shard.fetchClientValues('channels.cache.size'),
                 client.shard.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)),
                 cpu.usage().then(cpuPercentage => {
                     cpuUsage = cpuPercentage
@@ -426,7 +440,8 @@ module.exports = {
             Promise.all(promises).then(async results => {
                 const totalGuilds = results[0].reduce((acc, guildCount) => acc + guildCount, 0)
                 const totalEmojis = results[1].reduce((acc, emojisCount) => acc + emojisCount, 0)
-                const totalMembers  = results[2].reduce((acc, memberCount) => acc + memberCount, 0)
+                const totalChannels = results[2].reduce((acc, channelCount) => acc + channelCount, 0)
+                const totalMembers  = results[3].reduce((acc, memberCount) => acc + memberCount, 0)
                 var mem =  osu.mem
                 let freeRAM, usedRAM
     
@@ -446,9 +461,10 @@ module.exports = {
 • Vers Bot   :: v1.2
 • Creado el  :: 25 de agosto\n
 == Estadisticas ==
+• Guilds     :: ${totalGuilds}
 • Usuarios   :: ${totalMembers}
-• Emojis     :: ${totalEmojis}
-• Guilds     :: ${totalGuilds}\n
+• Canales    :: ${totalChannels}
+• Emojis     :: ${totalEmojis}\n
 == Informacion tecnica ==
 • Uso RAM    :: ${diagramMaker(usedRAM, freeRAM)} [${Math.round((100 * usedRAM) / (usedRAM + freeRAM))}%]
 • Uso CPU    :: ${diagramMaker(cpuUsage, 100 - cpuUsage)} [${Math.round(cpuUsage)}%]

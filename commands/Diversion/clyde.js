@@ -18,7 +18,7 @@ module.exports = {
                 const url = `https://ctk-api.herokuapp.com/clyde/${text}` //Ponemos el texto en la url de la api
 
                 const embed = new MessageEmbed() //Regresamos el embed con la imagen
-                .setImage(url)
+                .setImage(`${url}`)
                 .setColor(config.defaultSuccessColor)
 
                 return interaction.reply({ embeds: [embed]})
