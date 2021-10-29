@@ -15,10 +15,15 @@ module.exports = {
                     
                 const text = interaction.options.getString('text') //Recogemos lo que puso el usuari  
 
-                const url = `https://ctk-api.herokuapp.com/clyde/${text}` //Ponemos el texto en la url de la api
-
+                const embedError = new MessageEmbed() //Creamos el mensaje de Error por si menciona a un bot
+                    .setColor(config.defaultErrorColor)
+                    .setTitle('Error')
+                    .setDescription('Como maximo puedes poner 25 caracteres a la imagen.')
+                
+                if(text.length > 25) return interaction.reply({ embeds: [embedError]})
+                
                 const embed = new MessageEmbed() //Regresamos el embed con la imagen
-                .setImage(`${url}`)
+                .setImage(`https://ctk-api.herokuapp.com/clyde/${text}`)
                 .setColor(config.defaultSuccessColor)
 
                 return interaction.reply({ embeds: [embed]})
