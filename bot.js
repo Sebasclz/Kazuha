@@ -9,12 +9,6 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 
 AutoPoster(`${apiToken}`, client)
 
-const app = express()
-const port = 3000
-app.listen(port, () => {
-    console.log(`Escuchando http://localhost:${port}`)
-})
-
 client.commands = new Collection()
 client.selectMenus = new Collection()
 
