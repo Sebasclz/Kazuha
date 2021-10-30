@@ -8,6 +8,6 @@ module.exports = {
 			useNewUrlParser: true,
 			useUnifiedTopology: true, 
 		})
-		console.log('Base de datos y bot iniciados correctamente.')
+		console.log('La base de datos y la aplicacion han sido iniciadas correctamente')
 	}
 }
