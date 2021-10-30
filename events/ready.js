@@ -8,6 +8,6 @@ module.exports = {
 			useNewUrlParser: true,
 			useUnifiedTopology: true, 
 		})
-		console.log('Shard iniciada')
+		console.log('Base de datos y bot iniciados correctamente.')
 	}
 }
