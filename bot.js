@@ -1,13 +1,12 @@
 const {Client, Intents, Collection} = require('discord.js') 
 require('dotenv').config() 
 const { setInterval } = require('timers') 
-const apiToken = process.env.topGGToken
-const { AutoPoster } = require('topgg-autoposter')
-const express = require('express')
+//const apiToken = process.env.topGGToken
+//const { AutoPoster } = require('topgg-autoposter')
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES]})
 
-AutoPoster(`${apiToken}`, client)
+//AutoPoster(`${apiToken}`, client)
 
 client.commands = new Collection()
 client.selectMenus = new Collection()
@@ -32,10 +31,6 @@ async function updateStatus(){
             },
             {
                 name: `Servidores: ${guildNum} Miembros: ${memberNum}`,
-                type: 'WATCHING'
-            },
-            {
-                name: 'como estoy alojado en PyroNode',
                 type: 'WATCHING'
             }
         ]

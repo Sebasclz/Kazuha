@@ -48,6 +48,7 @@ module.exports = {
                 .addField('> images spank [@user]', 'Dale nalgadas a un usuario', true)
                 .addField('> images trash {@user}', 'Un meme en el cual te relacionan a vos o a otro con un tacho de basura', true)
                 .addField('> images wanted {@user}', 'Una imagen donde sales vos o alguien mas buscado por la justicia', true)
+                .addField('> images clyde [text]', 'Crea una imagen como si lo estuviera diciendo Clyde (El bot oficial de Discord)', true)
                 .setImage('https://i.ibb.co/jgqw9w2/Imagenes.gif')
                 .setFooter('[] obligatorio {} opcional')
                 .setTimestamp()

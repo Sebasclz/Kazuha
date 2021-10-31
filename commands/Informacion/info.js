@@ -267,8 +267,6 @@ module.exports = {
             const role = interaction.options.getRole('role')
 
             const roleName = capitalize(`${role.name}`)
-                        
-            const roleSize = interaction.guild.roles.cache.get(role.id)
 
             const embed = new MessageEmbed()
             .setTitle(`Informacion sobre el rol ${roleName}`)
@@ -412,6 +410,12 @@ module.exports = {
                 .setLabel('Votar - Top.gg')
                 .setStyle('LINK')
                 .setURL('https://top.gg/bot/898933117123973211')
+                .setEmoji('💎'),
+
+                new MessageButton()
+                .setLabel('Votar - MyBot')
+                .setStyle('LINK')
+                .setURL('https://portalmybot.com/list/bot/898933117123973211/vote')
                 .setEmoji('💎')
             )
 
@@ -468,7 +472,7 @@ module.exports = {
 == Informacion tecnica ==
 • Uso RAM    :: ${diagramMaker(usedRAM, freeRAM)} [${Math.round((100 * usedRAM) / (usedRAM + freeRAM))}%]
 • Uso CPU    :: ${diagramMaker(cpuUsage, 100 - cpuUsage)} [${Math.round(cpuUsage)}%]
-• CPU        :: AMD
+• CPU        :: Intel
 • RAM        :: ${(os.totalmem() / 1024 / 1024 / 1024).toFixed(2)} GB
 • SO         :: ${os.type} ${os.release} ${os.arch}
 • En linea   :: ${moment.duration(client.uptime).format([`D [Dias], H [Horas], m [Minutos], s [Segundos]`])}
