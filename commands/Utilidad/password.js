@@ -30,6 +30,7 @@ module.exports = {
             
                     const embed = new MessageEmbed()
                     .setTitle('Contraseña generada')
+                    .setColor(config.defaultSuccessColor)
                     .setDescription(`Contraseña generada: ${code}`)
 
                     return interaction.reply({ embeds: [embed], ephemeral: true}).catch(() => {

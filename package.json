@@ -11,7 +11,6 @@
     "discord.js": "^13.2.0",
     "dotenv": "^10.0.0",
     "dthings-api": "^1.2.5",
-    "express": "^4.17.1",
     "figlet": "^1.5.2",
     "fs": "^0.0.1-security",
     "i18n": "^0.13.3",
