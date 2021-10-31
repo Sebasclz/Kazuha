@@ -61,6 +61,7 @@ module.exports = {
                 .addField('> avatar {@user}', 'Muestra tu avatar o el de alguien mas', true)
                 .addField('> info channel [@channel]', 'Muestra la informacion de un canal, sea texto o voz', true)
                 .addField('> info role [@role]', 'Muestra la informacion de un rol', true)
+                .addField('> covid [pais]', 'Muestra informacion del covid-19 en un pais', true)
                 .addField('> help', 'Muestra informacion del bot', true)
                 .addField('> info server', 'Muestra informacion del servidor', true)
                 .addField('> info user {@user}', 'Muestra tu informacion o la de otro', true)

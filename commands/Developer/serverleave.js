@@ -5,12 +5,16 @@ const developer = require('../../models/developer.js')
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('svleave')
-        .setDescription('Haz que el bot salga de un servidor.')
-            .addStringOption(option => 
-                option.setName('text')
-                .setDescription("Ingresa la ID del servidor")
-                .setRequired(true)),
+        .setName('server')
+        .setDescription('Comando solo para desarrolladores')
+        .addSubcommand(subcommand => 
+            subcommand
+            .setName('leave')
+            .setDescription('Haz que el bot salga de un servidor')
+                .addStringOption(option => 
+                    option.setName('id')
+                    .setDescription("ID del servidor")
+                    .setRequired(true))),
                 async run(client, interaction){
                     await interaction.deferReply()
                     const developers = await developer.findOne({ developerId: interaction.user.id })
