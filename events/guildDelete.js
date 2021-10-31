@@ -17,8 +17,8 @@ module.exports = {
 
     if(guildModel){
     await guilds.deleteOne({
-      guildId: guild.id.toString(),
-      guildName: guild.name.toString(),
+      guildId: guild.id,
+      guildName: guild.name,
     })
 }
       webhookClient.send(

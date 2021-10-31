@@ -17,10 +17,10 @@ module.exports = {
 
     if(guildModel === null){
     const newGuild = new guilds({
-        guildId: guild.id.toString(),
-        guildName: guild.name.toString(),
-        ownerId:guild.ownerId.toString(),
-        memberCount: guild.memberCount.toString(),
+        guildId: guild.id,
+        guildName: guild.name,
+        ownerId:guild.ownerId,
+        memberCount: guild.memberCount,
     })
     newGuild.save().catch(e => console.log(e))
 }

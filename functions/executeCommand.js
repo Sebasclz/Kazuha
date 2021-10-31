@@ -6,12 +6,13 @@ module.exports = async (client, interaction) => {
 
     if (!command) return
 
-    const channelID = interaction.channel.id
+    const channelId = interaction.channelId
+    const channelID = channelId.toString()
     
-    const channelInteraction = await channelModel.findOne({ guildChannelId: channelID.toString()})
+    const channelInteraction = await channelModel.findOne({ guildChannelId: `${channelID}`})
 
     if(channelInteraction !== null) {
-        if(channelInteraction.guildChannelId === channelID.toString()) return;
+        if(channelInteraction.guildChannelId === `${channelID}`) return;
     }
 
     const userBlacklist = await blacklist.findOne({
