@@ -26,11 +26,12 @@ module.exports = {
 }
     if (guild.memberCount > 1000) {
       webhookClient.send(
-        `Se ha añadido una nueva Guild: **${guild.name}**. Numero de usuarios: **${guild.memberCount}** Dueño: **${guild.owner}**`
+        `Se ha añadido una nueva Guild: **${guild.name}**. Numero de usuarios: **${guild.memberCount}** Dueño: **${guild.ownerId} <@419574607020949505>
+**`
       );
     } else {
       webhookClient.send(
-        `Se ha añadido una nueva Guild: **${guild.name}**. Numero de usuarios: **${guild.memberCount}** Dueño: **${guild.owner}**`
+        `Se ha añadido una nueva Guild: **${guild.name}**. Numero de usuarios: **${guild.memberCount}** Dueño: **${guild.ownerId}**`
       );
     }
   }

@@ -73,7 +73,17 @@ module.exports = {
             .setDescription('Una imagen de buscado con tu avatar o con la de otro usuario')
             .addUserOption(option =>
             option.setName('user')
-            .setDescription('Menciona al usuario'))),
+            .setDescription('Menciona al usuario')))
+        
+        //Command 8
+        .addSubcommand(subcommand => 
+            subcommand
+            .setName('clyde')
+            .setDescription('Devuelve una imagen con un mensaje de Clyde (El bot de discord)')
+            .addStringOption(option =>
+            option.setName('text')
+            .setDescription('Ingresa el texto')
+            .setRequired(true))),
     async run(client, interaction){
         if(interaction.options.getSubcommand() === "beautiful"){
             /*
@@ -300,7 +310,7 @@ module.exports = {
                 ]})
                 
             };
-    }else if(interaction.options.getSubcommand() === "wanted"){
+    } else if(interaction.options.getSubcommand() === "wanted"){
         /*
         WANTED
         */
@@ -338,6 +348,41 @@ module.exports = {
                 ]})
                
             };
+        } else if(interaction.optionsg.getSubcommand() === 'clyde'){
+            /*
+            CLYDE
+            */
+           try{
+                const text = interaction.options.getString('text')
+
+                const embedError = new MessageEmbed() //Creamos el mensaje de Error por si menciona a un bot
+                    .setColor(config.defaultErrorColor)
+                    .setTitle('Error')
+                    .setDescription('Como maximo puedes poner 25 caracteres a la imagen.')
+                
+                if(text.length > 25) return interaction.reply({ embeds: [embedError]})
+
+                const image = await api.generate("clyde", { text: `${text}` })
+
+                const url = image.toString()
+                
+                const embed = new MessageEmbed() //Regresamos el embed con la imagen
+                .setImage(`${url}`)
+                .setColor(config.defaultSuccessColor)
+
+                return interaction.reply({ embeds: [embed]})
+
+            } catch (e){ //Si da error le avisamos al usuario y lo reportamos al servidor
+                console.error(e)
+                interaction.reply({ embeds: [
+                    new MessageEmbed()
+                    .setColor(config.defaultErrorColor)
+                    .setTitle('Error')
+                    .setDescription('Ha ocurrido un error fatal. Esto ha sido comunicado a los desarrolladores. No sigas utilizando este comando por favor.')
+                    .setTimestamp()
+                    .setFooter(interaction.user.username, interaction.user.avatarURL())
+                ]})
+            };
         }
-}
+    }
 }

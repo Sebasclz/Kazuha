@@ -1,6 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js')
 const config = require('../../config.json')
+const mongoose = require('mongoose')
+require('dotenv').config()
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,16 +12,25 @@ module.exports = {
                 try{
                     const ping =  Math.floor(client.ws.ping)
 
+                    
                     await interaction.reply({ content: 'Pinging...'})  
-
+                    
                     const messages = (Date.now() - interaction.createdTimestamp).toString().replace("-", "")
+                    
+                    //const start = Date.now()
+
+                    //mongoose.createConnection(`${process.env.mongoURL}`);
+
+                    //const end = Date.now()
+
 
                         const embed = new MessageEmbed()
                         .setColor(config.defaultSuccessColor)
                         .setTitle(`🏓 Pong!`)
                         .setThumbnail(interaction.user.displayAvatarURL({ format: 'png', dynamic: true, size: 4096}))
-                        .addField(`Bot`, "`" + `${ping}` + "ms`", true)
-                        .addField(`Mensajes`, "`" + `${messages}` + "ms`", true)
+                        .addField(`Discord`, "`" + `${ping}` + "ms`", true)
+                        .addField(`Bot`, "`" + `${messages}` + "ms`", true)
+                       // .addField(`Database`, "`" + `${end - start}` + "ms`", true)
                         .setFooter(`Shard Id: ${interaction.guild.shardId}`, interaction.user.avatarURL({ dynamic: true }))
                         .setTimestamp()
 

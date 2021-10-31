@@ -7,7 +7,7 @@ require('dotenv').config()
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('reload')
-        .setDescription('Reinicia el bot'),
+        .setDescription('Comando solo para desarrolladores'),
                 async run(client, interaction){
                     try{
                         await interaction.deferReply()

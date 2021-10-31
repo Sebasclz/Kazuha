@@ -6,7 +6,7 @@ const developer = require('../../models/developer.js')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('eval')
-        .setDescription('Evalua el codigo que quieras')
+        .setDescription('Comando solo para desarrolladores')
             .addStringOption(option => 
                 option.setName('code')
                 .setDescription("Ingresa el codigo a evaluar.")

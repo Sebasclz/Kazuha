@@ -12,6 +12,7 @@ createSlash()
 
 async function createSlash(){
     try{
+        console.log('Se ha iniciado la actualización de los comandos de la aplicación')
         const commands = []
         fs.readdirSync('./commands').forEach(async (category) => {
             const commandFiles = fs.readdirSync(`./commands/${category}`).filter((archivo) => archivo.endsWith('.js'))
@@ -24,7 +25,7 @@ async function createSlash(){
             Routes.applicationGuildCommands(clientId, guildId),
             { body: commands }
         )
-        console.log('Comandos lanzados correctamente')
+        console.log('Se han recargado correctamente los comandos de la aplicación')
     } catch(x){
         console.error(x)
     }

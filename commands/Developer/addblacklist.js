@@ -8,7 +8,7 @@ const developer = require('../../models/developer.js')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('addblacklist') 
-        .setDescription('Agrega a un usuario a la blacklist.') 
+        .setDescription('Comando solo para desarrolladores.') 
             .addStringOption(option => 
                 option.setName('id') 
                 .setDescription("Ingresa la ID del usuario a agregar.") 

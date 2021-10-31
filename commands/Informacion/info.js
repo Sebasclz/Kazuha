@@ -7,6 +7,7 @@ const capitalize = require('../../functions/capitalize')
 const osu = require('node-os-utils')
 const os = require('os')
 const diagramMaker = require('../../functions/diagramMaker.js')
+const dApi = require('dthings-api')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -52,7 +53,13 @@ module.exports = {
         .addSubcommand(subcommand => 
             subcommand
             .setName('bot')
-                .setDescription('Devuelve informacion del bot.')),
+                .setDescription('Devuelve informacion del bot.'))
+
+        //Command 5
+        .addSubcommand(subcommand => 
+            subcommand
+            .setName('dthings')
+                .setDescription('Devuelve informacion del bot en DiscordThings.')),
         async run(client, interaction){
             if(interaction.options.getSubcommand() === 'user'){
                 /*
@@ -215,7 +222,7 @@ module.exports = {
                 weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
               })
             
-            const embed = new MessageEmbed()
+                 const embed = new MessageEmbed()
                 .setThumbnail(interaction.guild.iconURL({ format: 'png', dynamic: true }))
                 .addField(`🏆 Nombre del servidor`, "```" + `${interaction.guild.name}` + "```", true)
                 .addField(`🔗 ID del servidor`, "```" + `${interaction.guild.id}` + "```", true)
@@ -225,15 +232,21 @@ module.exports = {
                 .addField(`👑 Dueño del servidor`, "```" + `${(await interaction.guild.fetchOwner()).user.tag}` + "```", false)
                 .addField(`👑 ID del dueño`, "```" + `${interaction.guild.ownerId}` + "```", false)
                 .addField(`🙋‍♂️ Numero de miembros`, "```" + `${interaction.guild.memberCount.toString()}` + "```", true)
-                .addField(`🤖 Numero de bots`, "```" + `${interaction.guild.members.cache.filter(m => m.user.bot).size}` + "```", true)
                 .addField(`🏷️ Numero de roles`, "```" + `${interaction.guild.roles.cache.size}` + "```", true)
                 .addField(`😎 Numero de emojis`, "```" +  `${interaction.guild.emojis.cache.size}` + "```", true)
+                .addField(`💬 Canales de texto`, "```" + `${interaction.guild.channels.cache.filter(c => c.type === 'GUILD_TEXT').size}` + "```", true)
+                .addField(`🔊 Canales de voz`, "```" + `${interaction.guild.channels.cache.filter(c => c.type === 'GUILD_VOICE').size}` + "```", true)
+                .addField(`🗂️ Categorias`, "```" + `${interaction.guild.channels.cache.filter(c => c.type === 'GUILD_CATEGORY').size}` + "```", true)
                 .addField(`🚀 Numero de boost`, "```" +  `${interaction.guild.premiumSubscriptionCount.toString()}` + "```", true)
                 .addField(`🚀 Nivel de boost`, "```" + `${boostLevels[interaction.guild.premiumTier]}` + "```", true)
                 .setColor(config.defaultSuccessColor)
                 .setFooter(`${guild.name}`, guild.iconURL({ dynamic: true }))
                 .setTimestamp()
-            await interaction.reply({ embeds: [embed], components: [row]})
+                 
+                 await interaction.reply({ embeds: [embed], components: [row]})
+           
+            
+           
             } catch(e){
                 console.error(e)
                 interaction.reply({ embeds: [
@@ -257,13 +270,12 @@ module.exports = {
 
             const embed = new MessageEmbed()
             .setTitle(`Informacion sobre el rol ${roleName}`)
-            .addField('Nombre', "```" + `${role.name}` + "```", true)
-            .addField('ID del rol', "```" + `${role.id}` + "```", true)
-            .addField('Miembros con el rol', "```" + `${role.members.size === 0 ? 'Ningun miembro tiene el rol' : role.members.size}` + "```", false)
-            .addField('Posicion', "```" + `${role.rawPosition}` + "```", false)
-            .addField('Color en hexadecimal', "```" + `${role.hexColor}` + "```", false)
-            .addField('Mencionable', "```" + `${role.mentionable === true ? 'Si' : 'No'}` + "```", true)
-            .addField("Gestionado por el sistema", "```" + `${role.managed === true ? 'Si' : 'No'}` + "```", true)
+            .addField('🏆 Nombre', "```" + `${role.name}` + "```", true)
+            .addField('🔗 ID del rol', "```" + `${role.id}` + "```", true)
+            .addField('🗂️ Posicion', "```" + `${role.rawPosition}` + "```", false)
+            .addField('🔶 Color en hexadecimal', "```" + `${role.hexColor}` + "```", false)
+            .addField('📲 Mencionable', "```" + `${role.mentionable === true ? 'Si' : 'No'}` + "```", true)
+            .addField("💻 Gestionado por el sistema", "```" + `${role.managed === true ? 'Si' : 'No'}` + "```", true)
             .setColor(role.hexColor)
 
             return interaction.reply({ embeds: [embed]})
@@ -319,15 +331,15 @@ module.exports = {
             const embed = new MessageEmbed()
             .setColor(config.defaultSuccessColor)
             .setTitle(`Informacion del canal de texto: ${nameChannel}`)
-            .addField('Nombre', "```" + `${nameChannel}` + "```", true)
-            .addField('ID del canal', "```" + `${channel.id}` + "```", true)
-            .addField(`Creado el`, "```" + `${moment(channel.createdAt).format('LLLL')}` + "```", true)
-            .addField('¿NSFW?', "```" + `${channel.nsfw === false ? "No" : "Si"}` + "```", true)
-            .addField('Tipo del canal', "```" + `${channel.type === 'GUILD_VOICE' ? "Canal de voz" : "Canal de texto"}` + "```", true)
-            .addField(`Tema del canal`, "```" + `${channel.topic < 1 ? "No hay un tema" : channel.topic}` + "```", true)
-            .addField(`Su categoria es`, "```" + `${channel.parent.name}` + "```", true)
-            .addField(`Cooldown del canal`, "```" + `${cooldown[channel.rateLimitPerUser]}` + "```", false)
-            .addField(`Posicion del canal`, "```" + `${channel.rawPosition}` + "```", false)
+            .addField('🏆 Nombre', "```" + `${nameChannel}` + "```", true)
+            .addField('🔗 ID del canal', "```" + `${channel.id}` + "```", true)
+            .addField(`⏳ Creado el`, "```" + `${moment(channel.createdAt).format('LLLL')}` + "```", true)
+            .addField('🔞 ¿NSFW?', "```" + `${channel.nsfw === false ? "No" : "Si"}` + "```", true)
+            .addField('🗂️ Tipo del canal', "```" + `${channel.type === 'GUILD_VOICE' ? "Canal de voz" : "Canal de texto"}` + "```", true)
+            .addField(`📜 Tema del canal`, "```" + `${channel.topic < 1 ? "No hay un tema" : channel.topic}` + "```", true)
+            .addField(`📂 Su categoria es`, "```" + `${channel.parent.name}` + "```", true)
+            .addField(`🕔 Cooldown del canal`, "```" + `${cooldown[channel.rateLimitPerUser]}` + "```", false)
+            .addField(`🗂️ Posicion del canal`, "```" + `${channel.rawPosition}` + "```", false)
             return interaction.reply({ embeds: [embed]})
 
             } else if(channelType === 'GUILD_VOICE'){
@@ -336,15 +348,15 @@ module.exports = {
                 const embed = new MessageEmbed()
             .setColor(config.defaultSuccessColor)
             .setTitle(`Informacion del canal de voz: ${nameChannel}`)
-            .addField('Nombre', "```" + `${nameChannel}` + "```", true)
-            .addField('ID del canal', "```" + `${channel.id}` + "```", true)
-            .addField(`Creado el`, "```" + `${moment(channel.createdAt).format('LLLL')}` + "```", true)
-            .addField('Tipo del canal', "```" + `${channel.type === 'GUILD_VOICE' ? "Canal de voz" : "Canal de texto"}` + "```", true)
-            .addField(`Su categoria es`, "```" + `${channel.parent.name}` + "```", true)
-            .addField(`Posicion del canal`, "```" + `${channel.rawPosition}` + "```", true)
-            .addField(`Region del canal`, "```" + `${channel.rtcRegion === null ? 'No tiene asignado una region' : channel.rtcRegion}` + "```", true)
-            .addField(`Limites de usuarios`, "```" + `${channel.userLimit === 0 ? 'No tiene limite de usuarios' : channel.userLimit}` + "```", false)
-            .addField(`Tasa de bits del canal`, "```" + `${bitrate.toString().replace('000', 'kbps')}` + "```", false)
+            .addField('🏆 Nombre', "```" + `${nameChannel}` + "```", true)
+            .addField('🔗 ID del canal', "```" + `${channel.id}` + "```", true)
+            .addField(`⏳ Creado el`, "```" + `${moment(channel.createdAt).format('LLLL')}` + "```", true)
+            .addField('🗂️ Tipo del canal', "```" + `${channel.type === 'GUILD_VOICE' ? "Canal de voz" : "Canal de texto"}` + "```", true)
+            .addField(`📂 Su categoria es`, "```" + `${channel.parent.name}` + "```", true)
+            .addField(`🗂️ Posicion del canal`, "```" + `${channel.rawPosition}` + "```", true)
+            .addField(`🌎 Region del canal`, "```" + `${channel.rtcRegion === null ? 'No tiene asignado una region' : channel.rtcRegion}` + "```", true)
+            .addField(`⛔ Limites de usuarios`, "```" + `${channel.userLimit === 0 ? 'No tiene limite de usuarios' : channel.userLimit}` + "```", false)
+            .addField(`🔧 Tasa de bits del canal`, "```" + `${bitrate.toString().replace('000', 'kbps')}` + "```", false)
             return interaction.reply({ embeds: [embed]})
 
             } else {
@@ -389,10 +401,22 @@ module.exports = {
 
                 
                 new MessageButton()
-                .setLabel('Votar')
+                .setLabel('Votar - DiscordThings')
                 .setStyle('LINK')
                 .setURL('https://discordthings.com/bot/898933117123973211/vote')
                 .setEmoji('💎'),
+                
+                new MessageButton()
+                .setLabel('Votar - Top.gg')
+                .setStyle('LINK')
+                .setURL('https://top.gg/bot/898933117123973211')
+                .setEmoji('💎'),
+
+                new MessageButton()
+                .setLabel('Votar - MyBot')
+                .setStyle('LINK')
+                .setURL('https://portalmybot.com/list/bot/898933117123973211/vote')
+                .setEmoji('💎')
             )
 
             moment.updateLocale('es', {
@@ -410,6 +434,7 @@ module.exports = {
             const promises= [
                 client.shard.fetchClientValues('guilds.cache.size'),
                 client.shard.fetchClientValues('emojis.cache.size'),
+                client.shard.fetchClientValues('channels.cache.size'),
                 client.shard.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)),
                 cpu.usage().then(cpuPercentage => {
                     cpuUsage = cpuPercentage
@@ -419,7 +444,8 @@ module.exports = {
             Promise.all(promises).then(async results => {
                 const totalGuilds = results[0].reduce((acc, guildCount) => acc + guildCount, 0)
                 const totalEmojis = results[1].reduce((acc, emojisCount) => acc + emojisCount, 0)
-                const totalMembers  = results[2].reduce((acc, memberCount) => acc + memberCount, 0)
+                const totalChannels = results[2].reduce((acc, channelCount) => acc + channelCount, 0)
+                const totalMembers  = results[3].reduce((acc, memberCount) => acc + memberCount, 0)
                 var mem =  osu.mem
                 let freeRAM, usedRAM
     
@@ -436,16 +462,17 @@ module.exports = {
 • Bot Name   :: ${client.user.username}
 • Bot ID     :: ${client.user.id}
 • Developer  :: iSebas#3534
-• Vers Bot   :: v1.2
+• Vers Bot   :: v1.3
 • Creado el  :: 25 de agosto\n
 == Estadisticas ==
+• Guilds     :: ${totalGuilds}
 • Usuarios   :: ${totalMembers}
-• Emojis     :: ${totalEmojis}
-• Guilds     :: ${totalGuilds}\n
+• Canales    :: ${totalChannels}
+• Emojis     :: ${totalEmojis}\n
 == Informacion tecnica ==
 • Uso RAM    :: ${diagramMaker(usedRAM, freeRAM)} [${Math.round((100 * usedRAM) / (usedRAM + freeRAM))}%]
 • Uso CPU    :: ${diagramMaker(cpuUsage, 100 - cpuUsage)} [${Math.round(cpuUsage)}%]
-• CPU        :: AMD
+• CPU        :: Intel
 • RAM        :: ${(os.totalmem() / 1024 / 1024 / 1024).toFixed(2)} GB
 • SO         :: ${os.type} ${os.release} ${os.arch}
 • En linea   :: ${moment.duration(client.uptime).format([`D [Dias], H [Horas], m [Minutos], s [Segundos]`])}
@@ -456,8 +483,45 @@ module.exports = {
 • Node       :: ${process.version}\`\`\``)
                 interaction.editReply({ content: ' ', embeds: [embed], components: [row] }) 
             })
+
             } catch(e){
                 console.error(e)
+                interaction.reply({ embeds: [
+                    new MessageEmbed()
+                    .setColor(config.defaultErrorColor)
+                    .setTitle('Error')
+                    .setDescription('Ha ocurrido un error fatal. Esto ha sido comunicado a los desarrolladores. No sigas utilizando este comando por favor.')
+                    .setTimestamp()
+                    .setFooter(interaction.user.username, interaction.user.avatarURL())
+                ]})
+            };
+
+            } else if(interaction.options.getSubcommand() === 'dthings'){
+                /*
+                DTHINGS
+                */
+            try{
+
+                const infoBot = dApi.getInfoBot('898933117123973211')
+                
+                return interaction.reply({embeds: [
+                    new MessageEmbed()
+                .setColor(config.defaultSuccessColor)
+                .setTitle(`Informacion de ${(await infoBot).name}`)
+                .setThumbnail(`${(await infoBot).avatar}`)
+                .addField('Nombre del bot', "```" + `${(await infoBot).name}` + "```", true)
+                .addField('ID del bot', "```" + `${(await infoBot).id}` + "```", true)
+                .addField('Descripcion', "```" + `${(await infoBot).description}` + "```", true)
+                .addField('Prefix', "```" + `${(await infoBot).prefix}` + "```", true)
+                .addField('Votos', "```" + `${(await infoBot).votes}` + "```", true)
+                .addField('Invitaciones', "```" + `${(await infoBot).invites}` + "```", true)
+                .addField('Tags', "```" + `${(await infoBot).tags.join(', ')}` + "```", true)
+                .setFooter(`Owner del bot: ${(await infoBot).owner}`)
+                .setTimestamp()
+            ]})
+
+            } catch(e) {
+                console.log(e)
                 interaction.reply({ embeds: [
                     new MessageEmbed()
                     .setColor(config.defaultErrorColor)

@@ -1,24 +1,26 @@
-const {Client, Intents, Collection} = require('discord.js') //Llamamos al NPM de Discord.js
-require('dotenv').config() //Llamamos al NPM dotenv
-const { setInterval } = require('timers') //Necesitamos el setInterval para actualizar el estado del bot cada cierto tiempo
+const {Client, Intents, Collection} = require('discord.js') 
+require('dotenv').config() 
+const { setInterval } = require('timers') 
+//const apiToken = process.env.topGGToken
+//const { AutoPoster } = require('topgg-autoposter')
 
-//Intents para que funcione bien todos los comandos del bot
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES]})
 
-//Creamos las colecciones de los comandos y selectmenus 
+//AutoPoster(`${apiToken}`, client)
+
 client.commands = new Collection()
 client.selectMenus = new Collection()
 
-setInterval(() => { //Cada 10 minutos se actualizara el estado
+setInterval(() => { 
     updateStatus()
 }, 60000)
 
-async function updateStatus(){ //Creamos la funcion de actualizar el estado
-    const promises = [ //Creamos una promesa que recoja de todas las shards, la cantidad de servidores y los miembros en total
+async function updateStatus(){ 
+    const promises = [ 
         client.shard.fetchClientValues('guilds.cache.size'),
         client.shard.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0))
     ]
-    Promise.all(promises).then(results => { //Sumamos cada uno de los servidores y miembros
+    Promise.all(promises).then(results => { 
         const guildNum = results[0].reduce((acc, guildCount) => acc + guildCount, 0)
         const memberNum = results[1].reduce((acc, memberCount) => acc + memberCount, 0)
 
@@ -30,18 +32,14 @@ async function updateStatus(){ //Creamos la funcion de actualizar el estado
             {
                 name: `Servidores: ${guildNum} Miembros: ${memberNum}`,
                 type: 'WATCHING'
-            },
-            {
-                name: 'como estoy alojado en PyroNode',
-                type: 'WATCHING'
             }
         ]
 
-        client.user.setActivity(activity[Math.floor(Math.random() * activity.length)]) //Creamos la actividad del bot
-    }).catch(console.error) //Si hay error no los dira
+        client.user.setActivity(activity[Math.floor(Math.random() * activity.length)]) 
+    }).catch(console.error) 
 }
 
-//Requerimos la carpeta events, commands, selectmenus al ejecutar el bot
+
 require("./handlers/events.js")(client); 
 require("./handlers/commands.js")(client);
 require("./handlers/selectmenus.js")(client);

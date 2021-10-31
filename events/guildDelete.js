@@ -22,7 +22,7 @@ module.exports = {
     })
 }
       webhookClient.send(
-        `Se ha eliminado una guild: **${guild.name}**. Numero de usuarios: **${guild.memberCount}** Dueño: **${guild.owner}**`
+        `Se ha eliminado una guild: **${guild.name}**. Numero de usuarios: **${guild.memberCount}** Dueño: **${guild.ownerId}**`
       );
     }
   }

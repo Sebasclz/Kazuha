@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageActionRow, MessageSelectMenu, MessageEmbed } = require('discord.js')
+const config = require('../../config.json')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -60,6 +61,18 @@ module.exports = {
                     description: 'Inicia una sesion de Doodle Crew',
                     value: 'doodleCrew',
                     emoji: '🖌️'
+                },
+                {
+                    label: 'SpellCast',
+                    description: 'Inicia una sesion de SpellCast',
+                    value: 'spellCast',
+                    emoji: '🧙'
+                },
+                {
+                    label: 'Awkword',
+                    description: 'Inicia una sesion de Awkword',
+                    value: 'awkword',
+                    emoji: '❓'
                 }
             ])
         )
