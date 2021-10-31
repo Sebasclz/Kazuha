@@ -13,16 +13,17 @@ module.exports = {
         async run(client, interaction){
             try{
                     //Declaramos la constante para que recoga el string que introdujo el usuario
-                    const string = interaction.options.getString('text');
+                    let string = interaction.options.getString('text');
                     
                     
-                    for(const i = 0; string.includes("@here") || string.includes("@everyone"); i++){
+                    for(let i = 0; string.includes("@here") || string.includes("@everyone"); i++){
                         string = string.replace(/@here/g, "here")
                         string = string.replace(/@everyone/g, "everyone")
                     }
                     
                     //Si es everyone o here le quitara el @ y luego regresa lo que puso el usuario
-                    return interaction.channel.send(Util.cleanContent(string, interaction))
+                    interaction.channel.send(Util.cleanContent(string, interaction))
+                    return interaction.reply({ content: 'El mensaje ha sido enviado correctamente, puedes borrar este mensaje', ephemeral: true})
 
 
             } catch (e){ //Si da error le avisamos al usuario y lo reportamos al servidor
