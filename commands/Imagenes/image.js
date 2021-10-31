@@ -2,6 +2,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed, MessageAttachment } = require('discord.js')
 const config = require('../../config.json')
 const DIG = require('discord-image-generation')
+const { NekoBot } = require("nekobot-api")
+const api = new NekoBot() 
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -348,7 +350,7 @@ module.exports = {
                 ]})
                
             };
-        } else if(interaction.optionsg.getSubcommand() === 'clyde'){
+        } else if(interaction.options.getSubcommand() === "clyde"){
             /*
             CLYDE
             */
