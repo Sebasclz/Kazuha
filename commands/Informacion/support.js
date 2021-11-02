@@ -5,8 +5,8 @@ const config = require('../../config.json')
 
 module.exports = {
     data: new SlashCommandBuilder()
-            .setName('invite')
-                .setDescription('Genera un link de para que me invites a un servidor.'),
+            .setName('support')
+                .setDescription('Genera un link para entrar al servidor de soporte.'),
     async run(client, interaction){
         try{
 
@@ -22,7 +22,7 @@ module.exports = {
             const embed = new MessageEmbed()
                 .setColor(config.defaultSuccessColor)
                 .setTitle('Comando de soporte | Kazuha')
-                .setDescription(`Si tienes alguna sugerencia, error que reportar o simplemente te quieres unir entonces haz click aqui al boton de abajo.`)                
+                .setDescription(`Si tienes alguna sugerencia, error que reportar o simplemente te quieres unir al servidor, entonces haz click aqui al boton de abajo.`)                
                 .setFooter(`${client.user.username}`, client.user.displayAvatarURL())
                 .setTimestamp()
             

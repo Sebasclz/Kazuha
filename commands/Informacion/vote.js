@@ -5,8 +5,8 @@ const config = require('../../config.json')
 
 module.exports = {
     data: new SlashCommandBuilder()
-            .setName('invite')
-                .setDescription('Genera un link de para que me invites a un servidor.'),
+            .setName('vote')
+                .setDescription('Genera 3 links para votar por el bot.'),
     async run(client, interaction){
         try{
 
