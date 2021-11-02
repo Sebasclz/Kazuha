@@ -10,9 +10,11 @@ const webhookClient = new Discord.WebhookClient({
 
 module.exports = {
     name: 'guildDelete',
-    async execute(client, guild) {
+    async execute(guild) {
+      if (guild.name !== undefined) {
       webhookClient.send(
         `Se ha eliminado una guild: **${guild.name}**. Numero de usuarios: **${guild.memberCount}** Dueño: **${guild.ownerId}**`
       );
+      }
     }
   }
