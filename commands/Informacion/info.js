@@ -385,40 +385,6 @@ module.exports = {
                 */
         try{
 
-            const row = new MessageActionRow()
-            .addComponents(
-                new MessageButton()
-                .setLabel('Invitame')
-                .setStyle('LINK')
-                .setURL('https://discord.com/oauth2/authorize?client_id=898933117123973211&permissions=8&scope=bot%20applications.commands')
-                .setEmoji('🎉'),
-
-                new MessageButton()
-                .setLabel('Servidor de soporte')
-                .setStyle('LINK')
-                .setURL('https://discord.gg/V8CpAUhkSk')
-                .setEmoji('🔧'),
-
-                
-                new MessageButton()
-                .setLabel('Votar - DiscordThings')
-                .setStyle('LINK')
-                .setURL('https://discordthings.com/bot/898933117123973211/vote')
-                .setEmoji('💎'),
-                
-                new MessageButton()
-                .setLabel('Votar - Top.gg')
-                .setStyle('LINK')
-                .setURL('https://top.gg/bot/898933117123973211')
-                .setEmoji('💎'),
-
-                new MessageButton()
-                .setLabel('Votar - MyBot')
-                .setStyle('LINK')
-                .setURL('https://portalmybot.com/list/bot/898933117123973211/vote')
-                .setEmoji('💎')
-            )
-
             moment.updateLocale('es', {
                 months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
                 monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split('_'),
@@ -481,7 +447,7 @@ module.exports = {
 • Hosting    :: PyroNode
 • Discord.js :: v${version}
 • Node       :: ${process.version}\`\`\``)
-                interaction.editReply({ content: ' ', embeds: [embed], components: [row] }) 
+                interaction.editReply({ content: ' ', embeds: [embed]}) 
             })
 
             } catch(e){
