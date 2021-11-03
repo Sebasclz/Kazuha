@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js')
 const config = require('../../config.json')
+const talkedRecently = new Set();
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,6 +13,9 @@ module.exports = {
                 .setRequired(true)),
         async run(client, interaction){
             try{
+                if (talkedRecently.has(interaction.user.id)) {
+                    interaction.reply({ content: `${interaction.user} Tienes que esperar 5 segundos para volver a usar el comando`})
+            } else {
                 const string = interaction.options.getString('text') //Obtenemos lo que el usuario escriba
 
                 const embedError = new MessageEmbed() //Creamos el embed de error
@@ -36,7 +40,14 @@ module.exports = {
             .setColor(config.defaultSuccessColor)
             .setDescription("Tu pregunta es: `" + string + "`\n\nMi respuesta es: `" + randomString + "`")
 
-            return interaction.reply({embeds: [embed]}) //Devolvemos el embed con la respuesta
+            interaction.reply({embeds: [embed]}) //Devolvemos el embed con la respuesta
+
+            talkedRecently.add(interaction.user.id);
+            setTimeout(() => {
+              // Removes the user from the set after a minute
+              talkedRecently.delete(interaction.user.id);
+            }, 5000);
+        }
             } catch(e) { //Si da error le avisara al usuario y lo mandara al canal privado del servidor.
                 console.error(e)
                 interaction.reply({ embeds: [

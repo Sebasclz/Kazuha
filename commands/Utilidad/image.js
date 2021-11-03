@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js')
 const config = require('../../config.json')
 const kufi = require('kufi')
+const talkedRecently = new Set();
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,20 +14,23 @@ module.exports = {
                     .setRequired(true)),
             async run(client, interaction){
                 try{
+                    if (talkedRecently.has(interaction.user.id)) {
+                        interaction.reply({ content: `${interaction.user} Tienes que esperar 5 segundos para volver a usar el comando`})
+                } else {
                     const string = interaction.options.getString('text')
 
                     const embed = new MessageEmbed()
                     .setColor(config.defaultSuccessColor)
                     .setImage(kufi.image.random(string))
 
-                    return interaction.reply({ embeds: [embed]}).catch(() => {
-                        const embedError = new MessageEmbed()
-                    .setColor(config.defaultErrorColor)
-                    .setTitle('Error')
-                    .setDescription('No se ha encontrado una imagen o ha ocurrido un error.')
+                    interaction.reply({ embeds: [embed]})
                     
-                    interaction.reply({ embeds: [embedError]})
-                    });
+                    talkedRecently.add(interaction.user.id);
+                    setTimeout(() => {
+                      // Removes the user from the set after a minute
+                      talkedRecently.delete(interaction.user.id);
+                    }, 5000);
+                }
                 } catch(e){
                     console.error(e)
                 interaction.reply({ embeds: [

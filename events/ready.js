@@ -17,8 +17,8 @@ module.exports = {
 			useUnifiedTopology: true, 
 		})
 		console.log('La base de datos y la aplicacion han sido iniciadas correctamente')
-		webhookClient.send(
-			`${client.user.username} se ha iniciado correctamente y sin fallos aparentemente.`
-		  );
+		//webhookClient.send(
+		//	`${client.user.username} se ha iniciado correctamente y sin fallos aparentemente.`
+		 // );
 	}
 }
