@@ -2,6 +2,7 @@
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
     "@discordjs/rest": "^0.1.0-canary.0",
+    "@iamtraction/google-translate": "^1.1.2",
     "axios": "^0.22.0",
     "canvas": "^2.8.0",
     "chance": "^1.1.8",
@@ -15,6 +16,7 @@
     "fs": "^0.0.1-security",
     "i18n": "^0.13.3",
     "kufi": "^2.0.0",
+    "mal-scraper": "^2.11.3",
     "minecraft-information": "^0.4.5",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",

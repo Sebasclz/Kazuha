@@ -17,6 +17,9 @@ module.exports = {
             try{
                 if (talkedRecently.has(interaction.user.id)) {
                     interaction.reply({ content: `${interaction.user} Tienes que esperar 10 segundos para volver a usar el comando`})
+                    setTimeout(() => {
+                        interaction.deleteReply()
+                      }, 10000);  
             } else {
         //Recogemos el usuario que se menciono
         const user = interaction.options.getUser('user')
