@@ -22,9 +22,11 @@ module.exports = {
                 } else {
                     const string = interaction.options.getString('text')
 
+                    const params = encodeURIComponent(`${string}`)
+
                     const embed = new MessageEmbed()
                     .setColor(config.defaultSuccessColor)
-                    .setImage(kufi.image.random(string))
+                    .setImage(kufi.image.random(params))
 
                     interaction.reply({ embeds: [embed]})
                     
