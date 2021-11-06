@@ -428,7 +428,7 @@ module.exports = {
 • Bot Name   :: ${client.user.username}
 • Bot ID     :: ${client.user.id}
 • Developer  :: iSebas#3534
-• Vers Bot   :: v1.3
+• Vers Bot   :: v1.4
 • Creado el  :: 25 de agosto\n
 == Estadisticas ==
 • Guilds     :: ${totalGuilds}
