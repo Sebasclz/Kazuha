@@ -107,6 +107,15 @@ module.exports = {
                     return interaction.update({ content: ' ', embeds: [embed], components: []});
                 });
                 break
+                case 'orcheckerinthepark':
+                    client.discordTogether.createTogetherCode(interaction.member.voice.channel.id, 'checkers').then(async invite => {
+                        const embed = new MessageEmbed()
+                        .setColor(config.defaultSuccessColor)
+                        .setDescription(`**[Haz click aqui](${invite.code})**`);
+                        
+                        return interaction.update({ content: ' ', embeds: [embed], components: []});
+                    });
+                    break
             }
         }
     }
