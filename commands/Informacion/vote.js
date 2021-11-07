@@ -16,7 +16,8 @@ module.exports = {
                 .setLabel('Votar - DiscordThings')
                 .setStyle('LINK')
                 .setURL('https://discordthings.com/bot/898933117123973211/vote')
-                .setEmoji('💎'),
+                .setEmoji('💎')
+                .setDisabled(),
                 
                 new MessageButton()
                 .setLabel('Votar - Top.gg')

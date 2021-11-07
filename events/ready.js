@@ -18,7 +18,7 @@ module.exports = {
 		})
 		console.log('La base de datos y la aplicacion han sido iniciadas correctamente')
 		//webhookClient.send(
-		//	`${client.user.username} se ha iniciado correctamente y sin fallos aparentemente.`
+		//	`${client.user.username} se ha iniciado/reconectado correctamente y sin fallos aparentemente.`
 		 // );
 	}
 }

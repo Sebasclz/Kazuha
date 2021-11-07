@@ -468,6 +468,14 @@ module.exports = {
                 */
             try{
 
+                return interaction.reply({ 
+                    embeds: [
+                        new MessageEmbed()
+                        .setTitle('Comando deshabilitado')
+                        .setColor(config.defaultErrorColor)
+                        .setDescription('La pagina de DiscordThings se encuentra deshabilitada actualmente.\nEste comando sera habilitado nuevamente cuando la pagina se encuentre en funcionamiento devuelta.')
+                    ]})
+
                 const infoBot = dApi.getInfoBot('898933117123973211')
                 
                 return interaction.reply({embeds: [
