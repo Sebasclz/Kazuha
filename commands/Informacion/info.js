@@ -473,7 +473,7 @@ module.exports = {
                         new MessageEmbed()
                         .setTitle('Comando deshabilitado')
                         .setColor(config.defaultErrorColor)
-                        .setDescription('La pagina de DiscordThings se encuentra deshabilitada actualmente.\nEste comando sera habilitado nuevamente cuando la pagina se encuentre en funcionamiento devuelta.')
+                        .setDescription('La pagina de DiscordThings se encuentra deshabilitada actualmente.\n\nEste comando sera habilitado cuando la pagina se encuentre devuelta en funcionamiento.')
                     ]})
 
                 const infoBot = dApi.getInfoBot('898933117123973211')

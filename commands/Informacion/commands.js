@@ -45,12 +45,6 @@ module.exports = {
                             emoji: '😎'
                         },
                         {
-                            label: 'Aplicaciones',
-                            description: 'Comandos de aplicaciones de Discord',
-                            value: 'aplicaciones',
-                            emoji: '💻'
-                        },
-                        {
                             label: 'Utilidad',
                             description: 'Comandos que te pueden ser utiles alguna vez en la vida.',
                             value: 'utilidad',
@@ -69,6 +63,7 @@ module.exports = {
                 .setColor(config.defaultSuccessColor)
                 .setTitle('Comandos')
                 .setDescription('En cada categoria del menu de abajo encontraras todos mis comandos.\n\nEsto esta hecho asi para que sea de una forma mas ordenada y no tan intrusiva en el chat.')
+                .setImage('https://i.ibb.co/gT0ds1Y/banner-bot.gif')
                 .setFooter('Si no ves el menú, por favor actualiza Discord.', interaction.user.displayAvatarURL({ dynamic: true }))
 
             await interaction.reply({ embeds: [embed], components: [row], ephemeral: true })
