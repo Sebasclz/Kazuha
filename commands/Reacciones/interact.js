@@ -638,7 +638,7 @@ module.exports = {
                 new MessageEmbed()
                 .setColor(config.defaultErrorColor)
                 .setTitle('Error')
-                .setDescription('Ha ocurrido un error fatal. Esto ha sido comunicado a los desarrolladores. No sigas utilizando este comando por favor.')
+                .setDescription('Ha ocurrido un erro fatal. Esto ha sido comunicado a los desarrolladores. No sigas utilizando este comando por favor.')
                 .setTimestamp()
                 .setFooter(interaction.user.username, interaction.user.avatarURL())
             ]})
