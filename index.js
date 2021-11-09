@@ -10,7 +10,7 @@ const manager = new ShardingManager('./bot.js', {
 });
 
 manager.on('shardCreate', async (shard) => {
-  console.log(`Iniciando shard ${shard.id}`)
+  console.log(`Iniciando shard #${shard.id + 1}`)
   shard.on('error', (error) => {
     console.error(error)
   })

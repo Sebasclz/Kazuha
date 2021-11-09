@@ -13,7 +13,7 @@ client.selectMenus = new Collection()
 
 setInterval(() => { 
     updateStatus()
-}, 60000)
+}, 15000)
 
 async function updateStatus(){ 
     const promises = [ 
@@ -24,18 +24,7 @@ async function updateStatus(){
         const guildNum = results[0].reduce((acc, guildCount) => acc + guildCount, 0)
         const memberNum = results[1].reduce((acc, memberCount) => acc + memberCount, 0)
 
-        const activity = [
-            {
-                name: '/help',
-                type: 'LISTENING'
-            },
-            {
-                name: `Servidores: ${guildNum} Miembros: ${memberNum}`,
-                type: 'WATCHING'
-            }
-        ]
-
-        client.user.setActivity(activity[Math.floor(Math.random() * activity.length)]) 
+        client.user.setActivity(`${guildNum} Guilds | ${memberNum} Members`, { type: "LISTENING" }) 
     }).catch(console.error) 
 }
 
