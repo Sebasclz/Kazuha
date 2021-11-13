@@ -359,14 +359,21 @@ module.exports = {
             .addField(`🔧 Tasa de bits del canal`, "```" + `${bitrate.toString().replace('000', 'kbps')}` + "```", false)
             return interaction.reply({ embeds: [embed]})
 
-            } else {
+            } else if(channelType !== 'GUILD_TEXT' || channelType !== 'GUILD_VOICE'){
                 
                 const embedError = new MessageEmbed()
                 .setColor(config.defaultErrorColor)
                 .setTitle('Error')
-                .setDescription('Has seleccionado un tipo de canal que no permito o algo ha salido mal, ejecute el comando nuevamente.')
+                .setDescription('Has seleccionado un tipo de canal que no permito.')
 
                 return interaction.reply({ embeds: [embedError]})
+            } else {
+                const embedError2 = new MessageEmbed()
+                .setColor(config.defaultErrorColor)
+                .setTitle('Error')
+                .setDescription('Algo ha salido mal, por favor intente nuevamente.')
+
+                return interaction.reply({ embeds: [embedError2]})
             }
         } catch(e){
             console.log(e)

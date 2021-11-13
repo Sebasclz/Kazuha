@@ -20,8 +20,22 @@ module.exports = {
 
                     const channelName = interaction.options.getChannel('channel')
 
-                    
+                    const channelInteraction = interaction.channel
+
+
                     if(!channelName){
+                        if(!interaction.guild.me.permissionsIn(channelInteraction).has("SEND_MESSAGES")){
+                            return interaction.reply({ 
+                                embeds: [
+                                new MessageEmbed()
+                                .setColor(config.defaultErrorColor)
+                                .setTitle('Error')
+                                .setDescription('Necesito el permiso de poder enviar mensajes en este canal `SEND_MESSAGES`')
+                                ],
+                                ephemeral: true
+                            })
+                        }
+
                         for(let i = 0; string.includes("@here") || string.includes("@everyone"); i++){
                             string = string.replace(/@here/g, "here")
                             string = string.replace(/@everyone/g, "everyone")
@@ -33,12 +47,36 @@ module.exports = {
                     } else if(channelName){                    
                     const channelId = channelName.id
 
-                    if (channelName.type === 'GUILD_CATEGORY' || channelName.type === 'GUILD_VOICE'){ 
+                    if(!interaction.guild.me.permissionsIn(channelName).has("VIEW_CHANNEL")){
+                        return interaction.reply({
+                            embeds: [
+                            new MessageEmbed()
+                            .setColor(config.defaultErrorColor)
+                            .setTitle('Error')
+                            .setDescription('No tengo acceso al canal mencionado `VIEW_CHANNEL`')
+                            ],
+                            ephemeral: true
+                        })
+                    }
+
+                    if(!interaction.guild.me.permissionsIn(channelName).has("SEND_MESSAGES")){
+                        return interaction.reply({ 
+                            embeds: [
+                            new MessageEmbed()
+                            .setColor(config.defaultErrorColor)
+                            .setTitle('Error')
+                            .setDescription('Necesito el permiso de poder enviar mensajes en el canal mencionado `SEND_MESSAGES`')
+                            ],
+                            ephemeral: true
+                        })
+                    }
+
+                    if (channelName.type !== 'GUILD_TEXT'){ 
                         return interaction.reply({ embeds: [
                             new MessageEmbed()
                             .setColor(config.defaultErrorColor)
                             .setTitle('Error')
-                            .setDescription('No puedes ejecutar este comando en categorias o canales de voz.')
+                            .setDescription('No puedes ejecutar este comando en canales que no sean de texto')
                         ]})
                     }
 
