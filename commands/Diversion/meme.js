@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js')
 const config = require('../../config.json')
+const talkedRecently = new Set();
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -8,7 +9,12 @@ module.exports = {
                 .setDescription('Ve memes.'),
         async run(client, interaction){
             try{
-
+                if (talkedRecently.has(interaction.user.id)) {
+                    interaction.reply({ content: `${interaction.user} Tienes que esperar 3 segundos para volver a usar el comando`})
+                    setTimeout(() => {
+                        interaction.deleteReply()
+                      }, 3000);  
+            } else {
                 const memesImagenEspañol = [
                     "https://cdn.discordapp.com/attachments/753710634629333052/874402902414852096/video0-229-1.mp4",
                     "https://cdn.discordapp.com/attachments/753710634629333052/885563076869509150/costenos.mp4",
@@ -467,9 +473,15 @@ module.exports = {
                 const memes = memesImagenEspañol[Math.floor(Math.random() * memesImagenEspañol.length)]
             
                 
-                return interaction.reply({ content: `${memes}`})
+                interaction.reply({ content: `${memes}`})
 
-                
+                talkedRecently.add(interaction.user.id);
+                    setTimeout(() => {
+                      // Removes the user from the set after a minute
+                      talkedRecently.delete(interaction.user.id);
+                    }, 3000);
+
+            }
             } catch (e){ //Si da error le avisamos al usuario y lo reportamos al servidor
                 console.error(e)
                 interaction.reply({ embeds: [

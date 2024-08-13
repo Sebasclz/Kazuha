@@ -1,16 +1,16 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed } = require('discord.js')
 const config = require('../../config.json')
-const kufi = require('kufi')
 const talkedRecently = new Set();
+const translate = require('@iamtraction/google-translate')
 
 module.exports = {
     data: new SlashCommandBuilder()
-    .setName('image')
-            .setDescription('El bot buscara una imagen que vos le pidas.')
+    .setName('translate')
+            .setDescription('Traduce un texto al español')
             .addStringOption(option =>
                 option.setName('text')
-                    .setDescription('La imagen que quieres buscar')
+                    .setDescription('Introduce el texto a traducir')
                     .setRequired(true)),
             async run(client, interaction){
                 try{
@@ -18,21 +18,33 @@ module.exports = {
                         interaction.reply({ content: `${interaction.user} Tienes que esperar 5 segundos para volver a usar el comando`})
                         setTimeout(() => {
                             interaction.deleteReply()
-                          }, 5000);
-                } else {
-                    const string = interaction.options.getString('text')
+                          }, 5000);               
+                    } else {
+                    
+                const query = interaction.options.getString('text')
 
-                    const params = encodeURIComponent(`${string}`)
+                const embedError = new MessageEmbed()
+                .setTitle('Error')
+                .setDescription('No puedes traducir un texto del español al español')
+                .setColor(config.defaultErrorColor)
+                
+                const translated = await translate(query, { to: "es" })
 
-                    const embed = new MessageEmbed()
-                    .setColor(config.defaultSuccessColor)
-                    .setImage(kufi.image.random(params))
+                if(translated.from.language.iso === 'es') return interaction.reply({ embeds: [embedError]})
+                
+                const embed = new MessageEmbed()
+                .setTitle('Traductor | Kazuha')
+                .setDescription('📥 Entrada\n```js\n' + query + '```\n📤 Salida\n```js\n' + translated.text + '```')
+                .setColor(config.defaultSuccessColor)
+                .setThumbnail(`https://play-lh.googleusercontent.com/ZrNeuKthBirZN7rrXPN1JmUbaG8ICy3kZSHt-WgSnREsJzo2txzCzjIoChlevMIQEA`)
+                .setFooter(`${interaction.user.username}`, interaction.user.avatarURL({ dynamic: true }))
+                .setTimestamp()
 
-                    interaction.reply({ embeds: [embed]})
+                 interaction.reply({ embeds: [embed]})
+                
                     
                     talkedRecently.add(interaction.user.id);
                     setTimeout(() => {
-                      // Removes the user from the set after a minute
                       talkedRecently.delete(interaction.user.id);
                     }, 5000);
                 }

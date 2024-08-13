@@ -27,6 +27,6 @@ async function createSlash(){
         )
         console.log('Se han recargado correctamente los comandos de la aplicación')
     } catch(x){
-        console.error(x)
+        console.error('Ha ocurrido un error al intentar recargar los comandos:\n\n' + x)
     }
 }

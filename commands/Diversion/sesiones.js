@@ -73,6 +73,12 @@ module.exports = {
                     description: 'Inicia una sesion de Awkword',
                     value: 'awkword',
                     emoji: '❓'
+                },
+                {
+                    label: 'Or Checkers in the Park',
+                    description: 'Inicia una sesion de Or Checkers in the Park',
+                    value: 'orcheckerinthepark',
+                    emoji: '🌲'
                 }
             ])
         )

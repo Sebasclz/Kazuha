@@ -359,14 +359,21 @@ module.exports = {
             .addField(`🔧 Tasa de bits del canal`, "```" + `${bitrate.toString().replace('000', 'kbps')}` + "```", false)
             return interaction.reply({ embeds: [embed]})
 
-            } else {
+            } else if(channelType !== 'GUILD_TEXT' || channelType !== 'GUILD_VOICE'){
                 
                 const embedError = new MessageEmbed()
                 .setColor(config.defaultErrorColor)
                 .setTitle('Error')
-                .setDescription('Has seleccionado un tipo de canal que no permito o algo ha salido mal, ejecute el comando nuevamente.')
+                .setDescription('Has seleccionado un tipo de canal que no permito.')
 
                 return interaction.reply({ embeds: [embedError]})
+            } else {
+                const embedError2 = new MessageEmbed()
+                .setColor(config.defaultErrorColor)
+                .setTitle('Error')
+                .setDescription('Algo ha salido mal, por favor intente nuevamente.')
+
+                return interaction.reply({ embeds: [embedError2]})
             }
         } catch(e){
             console.log(e)
@@ -384,40 +391,6 @@ module.exports = {
                 BOT
                 */
         try{
-
-            const row = new MessageActionRow()
-            .addComponents(
-                new MessageButton()
-                .setLabel('Invitame')
-                .setStyle('LINK')
-                .setURL('https://discord.com/oauth2/authorize?client_id=898933117123973211&permissions=8&scope=bot%20applications.commands')
-                .setEmoji('🎉'),
-
-                new MessageButton()
-                .setLabel('Servidor de soporte')
-                .setStyle('LINK')
-                .setURL('https://discord.gg/V8CpAUhkSk')
-                .setEmoji('🔧'),
-
-                
-                new MessageButton()
-                .setLabel('Votar - DiscordThings')
-                .setStyle('LINK')
-                .setURL('https://discordthings.com/bot/898933117123973211/vote')
-                .setEmoji('💎'),
-                
-                new MessageButton()
-                .setLabel('Votar - Top.gg')
-                .setStyle('LINK')
-                .setURL('https://top.gg/bot/898933117123973211')
-                .setEmoji('💎'),
-
-                new MessageButton()
-                .setLabel('Votar - MyBot')
-                .setStyle('LINK')
-                .setURL('https://portalmybot.com/list/bot/898933117123973211/vote')
-                .setEmoji('💎')
-            )
 
             moment.updateLocale('es', {
                 months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
@@ -462,7 +435,7 @@ module.exports = {
 • Bot Name   :: ${client.user.username}
 • Bot ID     :: ${client.user.id}
 • Developer  :: iSebas#3534
-• Vers Bot   :: v1.3
+• Vers Bot   :: v1.4
 • Creado el  :: 25 de agosto\n
 == Estadisticas ==
 • Guilds     :: ${totalGuilds}
@@ -481,7 +454,7 @@ module.exports = {
 • Hosting    :: PyroNode
 • Discord.js :: v${version}
 • Node       :: ${process.version}\`\`\``)
-                interaction.editReply({ content: ' ', embeds: [embed], components: [row] }) 
+                interaction.editReply({ content: ' ', embeds: [embed]}) 
             })
 
             } catch(e){
@@ -501,6 +474,14 @@ module.exports = {
                 DTHINGS
                 */
             try{
+
+                return interaction.reply({ 
+                    embeds: [
+                        new MessageEmbed()
+                        .setTitle('Comando deshabilitado')
+                        .setColor(config.defaultErrorColor)
+                        .setDescription('La pagina de DiscordThings se encuentra deshabilitada actualmente.\n\nEste comando sera habilitado cuando la pagina se encuentre devuelta en funcionamiento.')
+                    ]})
 
                 const infoBot = dApi.getInfoBot('898933117123973211')
                 

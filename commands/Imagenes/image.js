@@ -2,6 +2,9 @@ const { SlashCommandBuilder } = require('@discordjs/builders')
 const { MessageEmbed, MessageAttachment } = require('discord.js')
 const config = require('../../config.json')
 const DIG = require('discord-image-generation')
+const { NekoBot } = require("nekobot-api")
+const api = new NekoBot() 
+const Canvas = require('canvas')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -83,7 +86,16 @@ module.exports = {
             .addStringOption(option =>
             option.setName('text')
             .setDescription('Ingresa el texto')
-            .setRequired(true))),
+            .setRequired(true)))
+
+        //Command 9
+        .addSubcommand(subcommand => 
+            subcommand
+            .setName('onlyfans-cards')
+            .setDescription('Devuelve una tarjeta de onlyfans con tu avatar o la de otra persona')
+            .addUserOption(option =>
+                option.setName('user')
+                .setDescription('Menciona al usuario'))),
     async run(client, interaction){
         if(interaction.options.getSubcommand() === "beautiful"){
             /*
@@ -348,7 +360,7 @@ module.exports = {
                 ]})
                
             };
-        } else if(interaction.optionsg.getSubcommand() === 'clyde'){
+        } else if(interaction.options.getSubcommand() === "clyde"){
             /*
             CLYDE
             */
@@ -383,6 +395,51 @@ module.exports = {
                     .setFooter(interaction.user.username, interaction.user.avatarURL())
                 ]})
             };
+        } else if(interaction.options.getSubcommand() === "onlyfans-cards"){
+            /*
+            ONLYFANS
+            */
+
+            const user = interaction.options.getUser('user') || interaction.user
+
+            if(user.bot) return interaction.reply({ embeds: [
+                new MessageEmbed()
+                .setTitle('Error')
+                .setDescription('No puedes mencionar a un bot')
+                .setColor(config.defaultErrorColor)
+            ]})
+
+            const avatar = user.displayAvatarURL({ dynamic: false, format: 'png', size: 128})
+
+            const canvas = Canvas.createCanvas(318, 192)
+            const ctx = canvas.getContext('2d') 
+            
+            const bg = await Canvas.loadImage('https://cdn.discordapp.com/attachments/839484901954682930/839912792290885632/onlyfans.png')
+
+            ctx.drawImage(bg, 0, 0, canvas.width, canvas.height) 
+    
+            ctx.beginPath() 
+            ctx.arc(70, 75, 50, 0, Math.PI * 2) 
+            ctx.fillStyle = '#ffffff' 
+            ctx.fill() 
+            ctx.stroke() 
+            ctx.closePath()
+            ctx.clip() 
+
+            const imagen = await Canvas.loadImage(avatar) 
+            ctx.drawImage(imagen, 20, 23.5, 100, 100) 
+
+            const img = await canvas.toBuffer()
+
+            return interaction.reply({ files: [{
+                attachment: img,
+                name: "card.png"
+            }], 
+            embeds: [
+                new MessageEmbed()
+                .setImage("attachment://card.png")
+                .setColor(config.defaultSuccessColor)
+            ]})
         }
     }
 }

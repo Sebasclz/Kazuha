@@ -3,6 +3,7 @@ const { MessageEmbed } = require('discord.js')
 const config = require('../../config.json')
 const wait = require('util').promisify(setTimeout);
 const chance = require('chance').Chance()
+const talkedRecently = new Set();
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -14,6 +15,12 @@ module.exports = {
                 .setRequired(true)),
         async run(client, interaction){
             try{
+                if (talkedRecently.has(interaction.user.id)) {
+                    interaction.reply({ content: `${interaction.user} Tienes que esperar 10 segundos para volver a usar el comando`})
+                    setTimeout(() => {
+                        interaction.deleteReply()
+                      }, 10000);  
+            } else {
         //Recogemos el usuario que se menciono
         const user = interaction.options.getUser('user')
        
@@ -52,6 +59,12 @@ module.exports = {
         .addField(`Telefono:`, "```" + numero + "```", true)
         .addField(`Direccion IP:`, "```" + ip + "```", true)
         
+        talkedRecently.add(interaction.user.id);
+            setTimeout(() => {
+              // Removes the user from the set after a minute
+              talkedRecently.delete(interaction.user.id);
+            }, 10000);
+
         await interaction.deferReply()
         await wait(1600)
         await interaction.editReply(`Empezando el hackeo...`) //Mandamos cada mensaje cada 1,6 segundos
@@ -67,6 +80,8 @@ module.exports = {
         await interaction.editReply(`Hackeo completado.`)
         await wait(1000)
         await interaction.editReply({ content: ' ', embeds: [embed]}) //Mandamos el embed final con todo "hackeado"
+
+        }
 
             } catch(e){ //Si encuentra un error lo reportara al canal privado y le avisara al usuario
                 console.error(e)
